@@ -280,7 +280,7 @@ EOF
 
     if [ "$check_path" != "$PWD" ]; then
 
-      fail 50 "will not delete archived files because path changed.";
+      lx_fail "$LX_EXIT_BAD_ENVIRONMENT" "will not delete archived files because path changed from '$check_path' to '$PWD'.";
 
     fi;
 
