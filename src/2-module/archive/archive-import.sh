@@ -28,9 +28,13 @@ lx_archive_import() {
 
   [ -d "$tgt" ] || lx_fail "missing target dir '$tgt'.";
 
-  ssh -o StrictHostKeyChecking=no $user@$host test -d "$user_archive_dir";
+  if ssh -o StrictHostKeyChecking=no $user@$host test -d "$user_archive_dir"; then
 
-  if [ "$?" -ne "0" ]; then
+    # 2024-02-27 jj5 - the user archive directory exists, so we can proceed.
+
+    true;
+
+  else
 
     lx_warn "archive path $host:$user_archive_dir missing...";
 
