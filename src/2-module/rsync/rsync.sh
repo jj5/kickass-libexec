@@ -31,8 +31,9 @@ lx_rsync_backup() {
     "linux")
       # 2023-12-04 jj5 - include ACLs and xattrs for linux...
       args+=( --acls --xattrs );
+      # 2024-02-28 jj5 - this was removed because it's not supported on 'wit'
       # 2024-02-21 jj5 - this was needed to fix an issue with rsync
-      args+=( --max-alloc=0 );
+      #args+=( --max-alloc=0 );
       ;;
     *)
       lx_fail "unsupported host type '$host_type'.";;
