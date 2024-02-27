@@ -2,7 +2,20 @@
 
 lx_backup_linux_host() {
 
-  local host="$1";
+  lx_backup_linux_host_internal lx_backup_linux_dir "$@";
+
+}
+
+lx_backup_linux_host_large() {
+
+  lx_backup_linux_host_internal lx_backup_linux_dir_large "$@";
+
+}
+
+lx_backup_linux_host_internal() {
+
+  local backup_function="$1";
+  local host="$2";
 
   local zfs_file_system="$LX_ZFS_DATA_HOST/$host";
 
@@ -36,7 +49,7 @@ lx_backup_linux_host() {
 
         lx_run mkdir -p "$dir";
 
-        if lx_attempt 5 5 lx_backup_linux_dir "$host" "$dir"; then
+        if lx_attempt 5 5 $backup_function "$host" "$dir"; then
 
           # 2019-09-12 jj5 - success!
 
@@ -82,6 +95,19 @@ lx_backup_linux_dir() {
   [ -d "$dir" ] || { lx_fail "directory '$dir' does not exist."; }
 
   lx_run lx_rsync_backup "$host:/$dir/" "$dir/" linux;
+
+  return "$?";
+
+}
+
+lx_backup_linux_dir_large() {
+
+  local host="$1";
+  local dir="$2";
+
+  [ -d "$dir" ] || { lx_fail "directory '$dir' does not exist."; }
+
+  lx_run lx_rsync_backup_large "$host:/$dir/" "$dir/" linux;
 
   return "$?";
 

@@ -37,13 +37,13 @@ lx_archive_auto() {
 
 lx_archive() {
 
-  lx_archive_do lx_archive_tarball "$@";
+  lx_archive_internal lx_archive_tarball "$@";
 
 }
 
 lx_archive_file() {
 
-  lx_archive_do lx_archive_copy "$@";
+  lx_archive_internal lx_archive_copy "$@";
 
 }
 
@@ -95,7 +95,7 @@ lx_archive_copy() {
 
 }
 
-lx_archive_do() {
+lx_archive_internal() {
 
   local check_path="$PWD";
 

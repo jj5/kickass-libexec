@@ -1,5 +1,17 @@
 #!/bin/bash
 
+lx_rsync_backup_large() {
+
+  local src="$1";
+  local tgt="$2";
+  local host_type="${3:-linux}";
+
+  # 2024-02-21 jj5 - --max-alloc=0 was needed to fix an issue with rsync from 'charisma:/home/jj5'
+
+  lx_rsync_backup "$src" "$tgt" "$host_type" --max-alloc=0;
+
+}
+
 lx_rsync_backup() {
 
   # 2023-12-04 jj5 - a backup mirror exludes some files and handles some errors
@@ -7,6 +19,10 @@ lx_rsync_backup() {
   local src="$1";
   local tgt="$2";
   local host_type="${3:-linux}";
+
+  shift; shift; shift;
+
+  local args=( "$@" );
 
   if [ -z "${src:-}" ]; then
 
@@ -31,8 +47,7 @@ lx_rsync_backup() {
     "linux")
       # 2023-12-04 jj5 - include ACLs and xattrs for linux...
       args+=( --acls --xattrs );
-      # 2024-02-28 jj5 - this was removed because it's not supported on 'wit'
-      # 2024-02-21 jj5 - this was needed to fix an issue with rsync
+      # 2024-02-28 jj5 - this was removed because it's not supported on 'wit', if you need this use lx_rsync_backup_large
       #args+=( --max-alloc=0 );
       ;;
     *)
