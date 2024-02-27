@@ -10,6 +10,14 @@ lx_ssh() {
 
 }
 
+lx_scp() {
+
+  [ -x /usr/bin/scp ] || lx_fail "missing /usr/bin/scp";
+
+  /usr/bin/scp "$@";
+
+}
+
 lx_test() {
 
   builtin test "$@";
