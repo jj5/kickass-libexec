@@ -15,26 +15,4 @@ source "$LX_DIR_SRC/1-toolkit/const/error.sh";
 source "$LX_DIR_SRC/1-toolkit/env.sh";
 source "$LX_DIR_SRC/1-toolkit/toolkit.sh";
 
-lx_load_modules() {
-
-  local file='';
-
-  for file in $( ls "$LX_DIR_SRC/2-module" ); do
-
-    local path="$LX_DIR_SRC/2-module/$file/$file.sh";
-
-    if [ -f "$path" ]; then
-
-      source "$path";
-
-    else
-
-      >&2 echo -e "${LX_RED}missing module file: $path${LX_END}";
-
-    fi;
-
-  done;
-
-}
-
 lx_load_modules;

@@ -2,6 +2,30 @@
 
 # 2024-02-18 jj5 - these are some helper functions for use in bash scripts.
 
+lx_load_modules() {
+
+  local dir="${1:-$LX_DIR_SRC/2-module}";
+
+  local file='';
+
+  for file in $( ls "$dir" ); do
+
+    local path="$dir/$file/$file.sh";
+
+    if [ -f "$path" ]; then
+
+      source "$path";
+
+    else
+
+      >&2 echo -e "${LX_RED}missing module file: $path${LX_END}";
+
+    fi;
+
+  done;
+
+}
+
 # 2024-02-18 jj5 - set an option if it hasn't been overridden on the command-line...
 #
 lx_default() {
