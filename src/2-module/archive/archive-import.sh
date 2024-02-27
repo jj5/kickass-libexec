@@ -57,7 +57,10 @@ lx_archive_download() {
 
   fi
 
-  lx_attempt 5 5 lx_rsync_mirror "$src" "$tgt";
+  # 2024-02-28 jj5 - NOTE: it is important that we use the `lx_rsync_download` function here, as it is safe to resume,
+  # whereas lx_rsync_mirror is not.
+
+  lx_attempt 5 5 lx_rsync_download "$src" "$tgt";
 
   lx_quiet pushd "$tgt";
 

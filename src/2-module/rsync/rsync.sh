@@ -179,3 +179,59 @@ lx_rsync_mirror() {
   lx_run time rsync "${args[@]}" "$src" "$tgt"
 
 }
+
+lx_rsync_download() {
+
+  # 2023-12-04 jj5 - download all files (no exlusions) and expect success, but it doesn't delete files
+  # from the client, even if they're missing on the server.
+
+  local src="$1";
+  local tgt="$2";
+  local host_type="${3:-linux}";
+
+  if [ -z "${src:-}" ]; then
+
+    lx_fail "source must be specified.";
+
+  fi;
+
+  if [ -z "${tgt:-}" ]; then
+
+    lx_fail "target must be specified.";
+
+  fi;
+
+  lx_report "downloading (w/ rsync): $src to $tgt ($host_type)";
+
+  local args=()
+
+  case "$host_type" in
+    "mac")
+      # 2023-12-04 jj5 - no ACLs or xattrs for macOS...
+      true;;
+    "linux")
+      # 2023-12-04 jj5 - include ACLs and xattrs for linux...
+      args+=( --acls --xattrs );;
+    *)
+      lx_fail "unsupported host type '$host_type'.";;
+  esac
+
+  local progress='0';
+
+  if [ "$progress" != '0' ]; then
+
+    args+=( --progress );
+
+  fi
+
+  args+=( --stats --human-readable );
+  args+=( --recursive --force --times );
+  args+=( --links --hard-links --executability --numeric-ids );
+  args+=( --owner --group --perms --sparse );
+  args+=( --compress-level=0 );
+
+  # 2023-12-04 jj5 - NOTE: we don't include --devices or --specials
+
+  lx_run time rsync "${args[@]}" "$src" "$tgt"
+
+}
