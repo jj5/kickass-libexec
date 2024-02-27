@@ -74,3 +74,23 @@ if [ -z "$LX_ZFS_DATA_HOST" ]; then
   esac;
 
 fi;
+
+if [ -z "$LX_ZFS_DATA_ARCHIVE" ]; then
+
+  case "$( hostname )" in
+
+    commitment)
+      LX_ZFS_DATA_ARCHIVE='data/secure/archive';
+      ;;
+
+    charisma)
+      LX_ZFS_DATA_ARCHIVE='data/temp/archive';
+      ;;
+
+    *)
+      LX_ZFS_DATA_ARCHIVE='data/archive';
+      ;;
+
+  esac;
+
+fi;

@@ -854,25 +854,28 @@ lx_try() {
 
   lx_report "${LX_WHITE}try: ${description}${LX_END}...";
 
-  # 2017-11-15 jj5 - OLD: we don't run in-proc anymore...
-  #"$@";
-  # 2017-11-15 jj5 - NEW: we run in a subshell now...
-  # 2017-11-15 jj5 - DONE: we clear the list of temp files, because we don't
-  # want our subshell to delete them...
-  # 2017-11-16 jj5 - DONE: call _deltemp() when done to delete any temp files
-  # creted in the subprocess...
-  # 2019-03-10 jj5 - TODO: make this work when 'set -e' is enabled...
-  # 2019-03-10 jj5 - to make this with work 'set -e' write the error level to
-  # a file and return true, then read the file for the actual error level.
-  (
-    LX_STD_TEMPLIST=();
-    # 2017-11-17 jj5 - TODO: record subshell depth with +1...
-    LX_SCRIPT_SUBSHELL='1';
-    "$@";
-    LX_ERR="$?";
-    lx_del_tmp;
-    exit "$LX_ERR";
-  );
+  if command -v lx_del_tmp; then
+
+    (
+      LX_STD_TEMPLIST=();
+      LX_SCRIPT_SUBSHELL='1';
+      "$@";
+      LX_ERR="$?";
+      lx_del_tmp;
+      exit "$LX_ERR";
+    );
+
+  else
+
+    (
+      LX_STD_TEMPLIST=();
+      LX_SCRIPT_SUBSHELL='1';
+      "$@";
+      LX_ERR="$?";
+      exit "$LX_ERR";
+    );
+
+  fi
 
   local error="$?";
 
@@ -1156,9 +1159,8 @@ lx_notify() {
 
 lx_note() {
 
-  # 2018-02-02 jj5 - this uses report() now...
-  #
-  #>&2 echo -e "${LX_ORANGE}$@${LX_END}";
+  lx_newline;
+
   lx_report "${LX_LBLUE}$@${LX_END}";
 
 }
@@ -1635,6 +1637,8 @@ lx_remote_copy() {
 
   # 2024-02-18 jj5 - TODO: generate a unique temp file and register with lx_add_tmp()
 
+  lx_ensure_workspace;
+
   local temp="$LX_WORKSPACE/remote-copy.tmp";
 
   [ -e "$temp" ] && lx_fail "temp file '$temp' already exists!?";
@@ -1655,6 +1659,8 @@ lx_get_ip() {
   local host="$1";
 
   lx_ensure 1 'host' "$host";
+
+  lx_ensure_workspace;
 
   local file="$LX_WORKSPACE/$host.host";
 
@@ -1742,5 +1748,29 @@ lx_fatal() {
   lx_err "fatal error[$error]: $message";
 
   exit "$error";
+
+}
+
+lx_ensure_workspace() {
+
+  [ -d "${LX_WORKSPACE:-}" ] || {
+
+    # 2024-02-27 jj5 - usually the framework will have created a workspace, but if not we create an emergency workspace.
+
+    LX_WORKSPACE=$( mktemp -d "${TMPDIR:-/tmp/}lx-workspace.$$.XXXXXXXXXXXX" );
+
+    trap lx_remove_emergency_workspace EXIT;
+
+  };
+
+}
+
+lx_remove_emergency_workspace() {
+  
+  [ -d "${LX_WORKSPACE:-}" ] && {
+
+    lx_run rm -rf "$LX_WORKSPACE";
+
+  };
 
 }

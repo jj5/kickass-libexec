@@ -1,5 +1,40 @@
 #!/bin/bash
 
+source "$( dirname "${BASH_SOURCE[0]}" )/archive-import.sh";
+
+lx_archive_auto() {
+
+  local path="$1";
+
+  if [ -z "$path" ]; then
+
+    lx_fail 1 "must specify a path.";
+
+  fi;
+
+  if [ ! -d "$path" ]; then
+
+    lx_fail 2 "path '$path' is not a valid directory.";
+
+  fi;
+
+  lx_quiet pushd "$path";
+
+  local file_count="$( ls -alh | wc -l )";
+
+  if [ "$file_count" -gt 3 ]; then
+
+    (
+      shopt -s dotglob;
+      lx_run lx_archive remove *;
+    )
+
+  fi;
+
+  lx_quiet popd;
+
+}
+
 lx_archive() {
 
   lx_archive_do lx_archive_tarball "$@";
@@ -209,6 +244,8 @@ lx_archive_do() {
 
   fi;
 
+  lx_ensure_workspace;
+
   local archive_note="$LX_WORKSPACE/archive-note.txt";
 
   if [ "$( uname )" == "Darwin" ]; then
@@ -248,8 +285,9 @@ lx_archive_do() {
     # 2019-03-26 jj5 - we build $name_list to escape double quotes and dollar
     # signs in file names for reporting (below)...
     #
-    local name=("${file//\"/\\\"}");
-    name_list+=("${name//\$/\\\$}");
+    local name=( "${file//\"/\\\"}" );
+
+    name_list+=( "${name//\$/\\\$}" );
 
     shift;
 
