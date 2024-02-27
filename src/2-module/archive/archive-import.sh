@@ -41,7 +41,7 @@ lx_archive_download() {
 
   [ -d "$tgt" ] || lx_fail "missing target dir '$tgt'.";
 
-  if ssh -o StrictHostKeyChecking=no $remote_user@$host test -d "$user_archive_dir"; then
+  if lx_attempt 5 5 lx_ssh -o StrictHostKeyChecking=no $remote_user@$host test -d "$user_archive_dir"; then
 
     # 2024-02-27 jj5 - the user archive directory exists, so we can proceed.
 
@@ -106,9 +106,9 @@ lx_archive_download() {
 
       lx_run mv "$dir" "$archive_path/"
 
-      if ssh $remote_user@$host test -d "$user_archive_dir/$filename"; then
+      if lx_attempt 5 5 lx_ssh $remote_user@$host test -d "$user_archive_dir/$filename"; then
 
-        lx_run ssh $remote_user@$host rm -rf "$user_archive_dir/$filename";
+        lx_attempt 5 5 lx_ssh $remote_user@$host rm -rf "$user_archive_dir/$filename";
       
       else
 
