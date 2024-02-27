@@ -32,7 +32,11 @@ lx_archive_download() {
 
   lx_note "importing $host:$user_archive_dir to $data_archive_dir";
 
-  [ -e "$data_archive_tmp" ] && lx_fail "temp archive dir '$data_archive_tmp' already exists.";
+  if [ -e "$data_archive_tmp" ]; then
+  
+    lx_fail "temp archive dir '$data_archive_tmp' already exists.";
+
+  fi;
 
   lx_run mkdir "$data_archive_tmp";
 
@@ -58,7 +62,7 @@ lx_archive_download() {
   fi
 
   # 2024-02-28 jj5 - NOTE: it is important that we use the `lx_rsync_download` function here, as it is safe to resume,
-  # whereas lx_rsync_mirror is not.
+  # whereas lx_rsync_mirror is not because it will delete files that are not present in the source directory.
 
   lx_attempt 5 5 lx_rsync_download "$src" "$tgt";
 
