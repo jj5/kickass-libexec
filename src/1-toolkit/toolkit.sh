@@ -878,7 +878,7 @@ lx_try() {
 
   lx_report "${LX_WHITE}try: ${description}${LX_END}...";
 
-  if command -v lx_del_tmp; then
+  if command -v lx_del_tmp >/dev/null; then
 
     (
       LX_STD_TEMPLIST=();
