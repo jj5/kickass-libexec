@@ -1,5 +1,19 @@
 #!/bin/bash
 
+lx_zfs_snapshot() {
+
+  local zfs_file_system="$1";
+  local timestamp="${2:-}";
+  local max="${3:-47}";
+
+  [ -z "$timestamp" ] && timestamp=$( date +%Y-%m-%d-%H%M%S );
+
+  lx_run "$LX_DIR_BIN/libexec/hanok.php" --max $max --type zfs "$zfs_file_system";
+
+  lx_run zfs snapshot "$zfs_file_system@$timestamp";
+
+}
+
 lx_zfs_pull_host() {
 
   local src_host="$1";
