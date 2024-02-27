@@ -78,19 +78,21 @@ lx_rsync_backup() {
 
   lx_report running rsync "${args[@]}" "$src" "$tgt";
 
-  # 2023-12-04 jj5 - try with compression...
-  lx_wrap time rsync "${args[@]}" "$src" "$tgt" 2>&1 | \
+  if time rsync "${args[@]}" "$src" "$tgt" 2>&1 | \
     grep --line-buffered -v "$filter_a" | \
-    grep --line-buffered -v "$filter_b";
-
-  local error="${PIPESTATUS[0]}";
-
-  if [ "$error" = "0" ]; then
+    grep --line-buffered -v "$filter_b"; then
 
     # 2017-05-05 jj5 - no error. That's good!
-    true;
 
-  elif [ "$error" = "12" ]; then
+    return 0;
+
+  else
+
+    local error="${PIPESTATUS[0]}";
+
+  fi
+
+  if [ "$error" = "12" ]; then
 
     lx_fail "$error" "error in rsync protocol data stream.";
 
