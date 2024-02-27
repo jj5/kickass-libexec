@@ -14,6 +14,20 @@ lx_archive_import() {
   local host="$1";
   local user_archive_dir="$2";
   local data_archive_dir="/$LX_ZFS_DATA_ARCHIVE";
+
+  lx_archive_download "$host" "$user_archive_dir" "$data_archive_dir";
+
+  lx_run "$LX_DIR_BIN/libexec/deepen.php" "$data_archive_dir";
+
+}
+
+lx_archive_download() {
+
+  local host="$1";
+  local user_archive_dir="$2";
+  local data_archive_dir="$3";
+  local remote_user="${4:-root}";
+
   local data_archive_tmp="$data_archive_dir/temp";
 
   lx_note "importing $host:$user_archive_dir to $data_archive_dir";
@@ -22,13 +36,12 @@ lx_archive_import() {
 
   lx_run mkdir "$data_archive_tmp";
 
-  local user=root
-  local src=$user@$host:$user_archive_dir/
+  local src=$remote_user@$host:$user_archive_dir/
   local tgt="$data_archive_tmp";
 
   [ -d "$tgt" ] || lx_fail "missing target dir '$tgt'.";
 
-  if ssh -o StrictHostKeyChecking=no $user@$host test -d "$user_archive_dir"; then
+  if ssh -o StrictHostKeyChecking=no $remote_user@$host test -d "$user_archive_dir"; then
 
     # 2024-02-27 jj5 - the user archive directory exists, so we can proceed.
 
@@ -90,9 +103,9 @@ lx_archive_import() {
 
       lx_run mv "$dir" "$archive_path/"
 
-      if ssh $user@$host test -d "$user_archive_dir/$filename"; then
+      if ssh $remote_user@$host test -d "$user_archive_dir/$filename"; then
 
-        lx_run ssh $user@$host rm -rf "$user_archive_dir/$filename";
+        lx_run ssh $remote_user@$host rm -rf "$user_archive_dir/$filename";
       
       else
 
@@ -109,7 +122,5 @@ lx_archive_import() {
   done
 
   lx_run rmdir "$data_archive_tmp";
-
-  lx_run "$LX_DIR_BIN/libexec/deepen.php" "$data_archive_dir";
 
 }
