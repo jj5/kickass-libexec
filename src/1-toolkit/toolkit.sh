@@ -789,7 +789,9 @@ lx_loop() {
 
     if [ ! -f "$stop_path" ]; then
 
-      sleep 3;
+      lx_note "will sleep for 1 hour...";
+
+      sleep 3600;
 
       continue;
 
