@@ -63,7 +63,7 @@ lx_backup_linux_host_internal() {
 
       else
 
-        lx_fail "'$host:/$dir' failed, is host offline?";
+        lx_fail "'$host:/$dir' backup failed, is host offline?";
 
       fi;
 
