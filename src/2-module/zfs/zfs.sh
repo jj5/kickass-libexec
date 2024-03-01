@@ -51,7 +51,7 @@ lx_zfs_pull() {
 
   else
 
-    lx_fail "run zfs create $zfs_file_system";
+    lx_fail "ZFS file system $zfs_file_system is not mounted at /$zfs_file_system.";
 
   fi
 
