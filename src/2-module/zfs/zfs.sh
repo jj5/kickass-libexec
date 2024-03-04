@@ -39,6 +39,31 @@ lx_zfs_pull_host() {
 
 }
 
+lx_zfs_pull_host_secure() {
+
+  local src_host="$1";
+
+  for host in $( lx_ssh "$src_host" ls /data/secure/host ); do
+
+    lx_report "pulling secure host backups from '$src_host' for host '$host'...";
+
+    if [ -d "/data/secure/host/$host/" ]; then
+
+      # 2023-12-04 jj5 - local ZFS file system already exists...
+      true;
+
+    else
+
+      lx_run zfs create "data/secure/host/$host"
+
+    fi
+
+    lx_run lx_zfs_pull "$src_host" "data/secure/host/$host";
+
+  done;
+
+}
+
 lx_zfs_pull() {
 
   local src_host="$1";
