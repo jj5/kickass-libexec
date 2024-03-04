@@ -22,3 +22,5 @@ alias archive-file="$LX_DIR_BIN/lx-archive-file.sh";
 alias archive-file-copy="$LX_DIR_BIN/lx-archive-file-copy.sh";
 
 alias rt="$LX_DIR_BIN/lx-run-tests.sh";
+
+alias maint="$LX_DIR_BIN/lx-maint.sh";
