@@ -130,5 +130,3 @@ lx_is_snowflake() {
   return 1;
 
 }
-
-main "$@";
