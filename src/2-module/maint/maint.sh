@@ -22,6 +22,8 @@ lx_maint() {
     /srv/admin
     /srv/pillar
     /srv/salt
+    /srv/netprov
+    /srv/nv3
   );
 
   for path in "${git_wc_list[@]}"; do
