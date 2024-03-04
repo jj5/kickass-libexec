@@ -1,5 +1,7 @@
 #!/bin/bash
 
+alias ll='ls -alh'
+
 alias ..='builtin pushd .. >/dev/null';
 
 alias cdl='pushd "$( ls -td */ | head -n1 )" >/dev/null';

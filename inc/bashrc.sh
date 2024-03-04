@@ -14,5 +14,6 @@ LX_DIR_SRC="$LX_DIR/src";
 [ -d "$LX_DIR_SRC" ] || { echo "error: LX_DIR_SRC not found: $LX_DIR_SRC"; exit 40; }
 
 source "$LX_DIR_INC/lib.sh";
+source "$LX_DIR_SRC/4-command/cli-env.sh";
 source "$LX_DIR_SRC/4-command/cli-function.sh";
 source "$LX_DIR_SRC/4-command/cli-alias.sh";
