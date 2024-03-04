@@ -6,7 +6,7 @@ alias ..='builtin pushd .. >/dev/null';
 
 alias cdl='pushd "$( ls -td */ | head -n1 )" >/dev/null';
 
-alias s='sudo -s';
+#alias s='sudo -s';
 
 alias srv='pushd /srv >/dev/null && [ "$USER" == "root" ] || sudo -s';
 

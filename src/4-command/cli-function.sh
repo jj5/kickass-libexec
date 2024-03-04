@@ -12,9 +12,9 @@ p() {
 
 }
 
-sudo() {
+s() {
 
-  /usr/bin/sudo "$@"
+  sudo -s "$@"
 
   # 2024-03-04 jj5 - set the window title back to the localhost
 
