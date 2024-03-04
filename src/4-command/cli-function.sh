@@ -12,11 +12,11 @@ p() {
 
 }
 
-s() {
+sudo() {
 
-  sudo -s "$@"
+  /usr/bin/sudo "$@"
 
-  # 2024-03-04 jj5 - set the window title back to the localhost
+  # 2024-03-04 jj5 - set the window title back to the previous user
 
   echo -ne "\033]2;$USER@$HOSTNAME\007" >&2
 
