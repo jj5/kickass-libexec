@@ -28,7 +28,7 @@ lx_borg_backup() {
   # 2020-10-04 jj5 - SEE: borg create:
   # https://borgbackup.readthedocs.io/en/stable/usage/create.html
   #
-  args+=( --filter=AME );
+  args+=( --filter=AMCE );
   args+=( --list --show-rc --verbose );
   #args+=( --progress );
   #args+=( --dry-run );
@@ -76,7 +76,7 @@ lx_borg_backup_fast() {
   # 2020-10-04 jj5 - SEE: borg create:
   # https://borgbackup.readthedocs.io/en/stable/usage/create.html
   #
-  args+=( --filter=AME );
+  args+=( --filter=AMCE );
   args+=( --list --show-rc --verbose );
   #args+=( --progress );
   #args+=( --dry-run );
