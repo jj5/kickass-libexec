@@ -8,14 +8,26 @@ LX_DIR_ETC="$LX_DIR/etc";
 LX_DIR_INC="$LX_DIR/inc";
 LX_DIR_SRC="$LX_DIR/src";
 
+echo '1...'
+
 [ -d "$LX_DIR_BIN" ] || { echo "error: LX_DIR_BIN not found: $LX_DIR_BIN"; exit 40; }
 [ -d "$LX_DIR_ETC" ] || { echo "error: LX_DIR_ETC not found: $LX_DIR_ETC"; exit 40; }
 [ -d "$LX_DIR_INC" ] || { echo "error: LX_DIR_INC not found: $LX_DIR_INC"; exit 40; }
 [ -d "$LX_DIR_SRC" ] || { echo "error: LX_DIR_SRC not found: $LX_DIR_SRC"; exit 40; }
 
+echo '2...'
+
 source "$LX_DIR_INC/lib.sh";
+
+echo '3...'
+
 source "$LX_DIR_SRC/4-command/cli-function.sh";
+
+echo '4...'
+
 source "$LX_DIR_SRC/4-command/cli-alias.sh";
+
+echo '5...'
 
 # You may uncomment the following lines if you want `ls' to be colorized:
 export LS_OPTIONS='--color=auto'
@@ -24,6 +36,8 @@ alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias l='ls $LS_OPTIONS -lA'
 
+echo '6...'
+
 # Some more alias to avoid making mistakes:
 [ "$USER" == "root" ] && {
   alias rm='rm -i'
@@ -31,12 +45,20 @@ alias l='ls $LS_OPTIONS -lA'
   alias mv='mv -i'
 }
 
+echo '7...'
+
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=-1
 HISTFILESIZE=-1
 
+echo '8...'
+
 # 2024-02-03 jj5 - colour prompt that I like...
 PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:\j error:$? time:$SECONDS]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$PWD\[\033[00m\]\n\[\033[1;31m\]\$\[\033[00m\] '
 
+echo '9...'
+
 # 2023-12-29 jj5 - set the Konsole window title
 echo -ne "\033]2;$USER@$HOSTNAME\007" >&2
+
+echo '10...'
