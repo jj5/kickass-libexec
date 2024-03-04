@@ -24,7 +24,8 @@ lx_borg_backup() {
   # https://borgbackup.readthedocs.io/en/stable/usage/help.html
   #
   #args+=( --compression zstd,22 );
-  args+=( --compression lzma,6 );
+  #args+=( --compression lzma,6 );
+  args+=( --compression zstd,22,threads=auto );
 
   # 2020-10-04 jj5 - SEE: borg create:
   # https://borgbackup.readthedocs.io/en/stable/usage/create.html
