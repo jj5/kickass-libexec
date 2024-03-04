@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/var/lib/libvirt/qemu/snapshot/218-jj-wrk-8-charm-prod-qemu'
+let g:netrw_dirhist_1='/home/jj5/.config/kicad'
+let g:netrw_dirhist_0='/home/jj5/.config/khtml'
+let g:netrw_dirhist_9='/home/jj5/.config/keepassxc'
+let g:netrw_dirhist_8='/home/jj5/.config/kde.org'
+let g:netrw_dirhist_7='/home/jj5/.config/kdedefaults'
+let g:netrw_dirhist_6='/home/jj5/.config/kdeconnect'
+let g:netrw_dirhist_5='/home/jj5/.config/kate'
+let g:netrw_dirhist_4='/etc'
+let g:netrw_dirhist_3='/home/jj5/bin/inc'
