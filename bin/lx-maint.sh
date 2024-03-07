@@ -1,5 +1,7 @@
 #!/bin/bash
 
+LX_LOCK_FILE='/var/lock/lx-maint.lock';
+
 main() {
 
   lx_maint "$@";
