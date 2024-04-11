@@ -146,6 +146,8 @@ lx_zfs_push() {
 
   fi
 
+  lx_note "pushing ZFS file system $zfs_src to $tgt_host:$zfs_tgt...";
+
   if lx_ssh "$tgt_host" test -d "/$zfs_tgt/"; then
 
     # 2023-12-12 jj5 - target exists, that's good
