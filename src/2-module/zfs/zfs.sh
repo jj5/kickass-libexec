@@ -76,6 +76,8 @@ lx_zfs_pull() {
 
   fi
 
+  lx_note "pulling ZFS file system from $src_host:$zfs_src to $zfs_tgt...";
+
   if [ -d "/$zfs_tgt/" ]; then
 
     # 2023-12-04 jj5 - local ZFS file system already exists...
