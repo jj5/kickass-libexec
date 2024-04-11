@@ -130,9 +130,12 @@ lx_zfs_push_host() {
 lx_zfs_push() {
 
   local tgt_host="$1";
-  local zfs_file_system="$2";
+  local zfs_src="$2";
+  local zfs_tgt="$zfs_src";
 
-  if lx_ssh "$tgt_host" test -d "/$zfs_file_system/"; then
+  [ -n "$3" ] && zfs_tgt="$3";
+
+  if lx_ssh "$tgt_host" test -d "/$zfs_tgt/"; then
 
     # 2023-12-12 jj5 - target exists, that's good
 
@@ -142,27 +145,27 @@ lx_zfs_push() {
 
     # 2023-12-12 jj5 - target doesn't exist or connection error, fail
 
-    lx_fail "run ssh '$tgt_host' zfs create $zfs_file_system";
+    lx_fail "run ssh '$tgt_host' zfs create $zfs_tgt";
 
   fi
 
-  for snapshot in $( ls "/$zfs_file_system/.zfs/snapshot" ); do
+  for snapshot in $( ls "/$zfs_src/.zfs/snapshot" ); do
 
-    if lx_ssh "$tgt_host" test ! -d "/$zfs_file_system/.zfs/snapshot/$snapshot"; then
+    if lx_ssh "$tgt_host" test ! -d "/$zfs_tgt/.zfs/snapshot/$snapshot"; then
 
-      lx_run lx_rsync_mirror "/$zfs_file_system/.zfs/snapshot/$snapshot/" "$tgt_host:/$zfs_file_system/";
+      lx_run lx_rsync_mirror "/$zfs_src/.zfs/snapshot/$snapshot/" "$tgt_host:/$zfs_tgt/";
 
-      lx_run lx_ssh "$tgt_host" zfs snapshot "$zfs_file_system@$snapshot";
+      lx_run lx_ssh "$tgt_host" zfs snapshot "$zfs_tgt@$snapshot";
 
     fi
 
   done
 
-  for snapshot in $( lx_ssh "$tgt_host" ls "/$zfs_file_system/.zfs/snapshot" ); do
+  for snapshot in $( lx_ssh "$tgt_host" ls "/$zfs_tgt/.zfs/snapshot" ); do
 
-    if test ! -d "/$zfs_file_system/.zfs/snapshot/$snapshot"; then
+    if test ! -d "/$zfs_src/.zfs/snapshot/$snapshot"; then
 
-      lx_run lx_ssh "$tgt_host" zfs destroy "$zfs_file_system@$snapshot";
+      lx_run lx_ssh "$tgt_host" zfs destroy "$zfs_tgt@$snapshot";
 
     fi
 
