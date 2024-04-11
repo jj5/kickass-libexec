@@ -70,7 +70,7 @@ lx_zfs_pull() {
   local zfs_src="$2";
   local zfs_tgt="$zfs_src";
 
-  if [ -n "$3" ]; then
+  if [ -n "${3:-}" ]; then
   
     zfs_tgt="$3";
 
@@ -140,7 +140,7 @@ lx_zfs_push() {
   local zfs_src="$2";
   local zfs_tgt="$zfs_src";
 
-  if [ -n "$3" ]; then
+  if [ -n "${3:-}" ]; then
   
     zfs_tgt="$3";
 
