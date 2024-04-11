@@ -70,7 +70,11 @@ lx_zfs_pull() {
   local zfs_src="$2";
   local zfs_tgt="$zfs_src";
 
-  [ -n "$3" ] && zfs_tgt="$3";
+  if [ -n "$3" ]; then
+  
+    zfs_tgt="$3";
+
+  fi
 
   if [ -d "/$zfs_tgt/" ]; then
 
@@ -136,7 +140,11 @@ lx_zfs_push() {
   local zfs_src="$2";
   local zfs_tgt="$zfs_src";
 
-  [ -n "$3" ] && zfs_tgt="$3";
+  if [ -n "$3" ]; then
+  
+    zfs_tgt="$3";
+
+  fi
 
   if lx_ssh "$tgt_host" test -d "/$zfs_tgt/"; then
 
