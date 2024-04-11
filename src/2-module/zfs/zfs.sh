@@ -67,39 +67,42 @@ lx_zfs_pull_host_secure() {
 lx_zfs_pull() {
 
   local src_host="$1";
-  local zfs_file_system="$2";
+  local zfs_src="$2";
+  local zfs_tgt="$zfs_src";
 
-  if [ -d "/$zfs_file_system/" ]; then
+  [ -n "$3" ] && zfs_tgt="$3";
+
+  if [ -d "/$zfs_tgt/" ]; then
 
     # 2023-12-04 jj5 - local ZFS file system already exists...
     true;
 
   else
 
-    lx_fail "ZFS file system $zfs_file_system is not mounted at /$zfs_file_system.";
+    lx_fail "ZFS file system $zfs_tgt is not mounted at /$zfs_tgt.";
 
   fi
 
-  for snapshot in $( lx_ssh "$src_host" ls "/$zfs_file_system/.zfs/snapshot" ); do
+  for snapshot in $( lx_ssh "$src_host" ls "/$zfs_src/.zfs/snapshot" ); do
 
-    if [ -d "/$zfs_file_system/.zfs/snapshot/$snapshot" ]; then
+    if [ -d "/$zfs_tgt/.zfs/snapshot/$snapshot" ]; then
 
       # 2023-12-04 jj5 - we already have this snapshot...
       continue;
 
     fi
 
-    lx_run lx_rsync_mirror "$src_host:/$zfs_file_system/.zfs/snapshot/$snapshot/" "/$zfs_file_system/";
+    lx_run lx_rsync_mirror "$src_host:/$zfs_src/.zfs/snapshot/$snapshot/" "/$zfs_tgt/";
 
-    lx_run zfs snapshot "$zfs_file_system@$snapshot";
+    lx_run zfs snapshot "$zfs_tgt@$snapshot";
 
   done
 
-  for snapshot in $( ls "/$zfs_file_system/.zfs/snapshot" ); do
+  for snapshot in $( ls "/$zfs_tgt/.zfs/snapshot" ); do
 
-    if lx_ssh "$src_host" test ! -d "/$zfs_file_system/.zfs/snapshot/$snapshot"; then
+    if lx_ssh "$src_host" test ! -d "/$zfs_src/.zfs/snapshot/$snapshot"; then
 
-      lx_run zfs destroy "$zfs_file_system@$snapshot";
+      lx_run zfs destroy "$zfs_tgt@$snapshot";
 
     fi
 
