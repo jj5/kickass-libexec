@@ -31,7 +31,12 @@ lx_borg_backup() {
   # 2020-10-04 jj5 - SEE: borg create:
   # https://borgbackup.readthedocs.io/en/stable/usage/create.html
   #
-  args+=( --filter=AMCE );
+
+  # 2024-04-21 jj5 - NEW: only report errors...
+  args+=( --filter=CE );
+  # 2024-04-21 jj5 - OLD:
+  #args+=( --filter=AMCE );
+
   args+=( --list --show-rc --verbose );
   #args+=( --progress );
   #args+=( --dry-run );
