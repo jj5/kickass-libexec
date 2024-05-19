@@ -60,6 +60,7 @@ lx_borg_backup() {
   # 2024-05-19 JJ5 - OLD:     --prefix '{hostname}-'  \
 
   lx_run borg prune         \
+    --remote-path borg1     \
     --list                  \
     --show-rc               \
     --keep-daily    7       \
@@ -114,6 +115,7 @@ lx_borg_backup_fast() {
   # 2024-05-17 jj5 - OLD: --prefix '{hostname}-'  \
 
   lx_run borg prune         \
+    --remote-path borg1     \
     --list                  \
     --show-rc               \
     --keep-daily    7       \
