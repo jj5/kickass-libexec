@@ -4,6 +4,8 @@ LX_LOCK_FILE='/var/lock/lx-gui.lock';
 
 main() {
 
+  echo "temp note";
+
   local dirs=( "$@" );
 
   if [ "${#dirs[@]}" == '0' ]; then

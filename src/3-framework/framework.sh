@@ -307,10 +307,6 @@ lx_main() {
 
     local error="$?";
 
-    lx_run_job "cleaning up" lx_cleanup;
-
-    lx_report_finished "$error";
-
     exit "$error";
 
   ) 9>"$lockfile";
@@ -322,6 +318,18 @@ lx_main() {
     lx_drop_lock;
 
   fi;
+
+  lx_exit "$error";
+
+}
+
+lx_exit() {
+
+  local error="${1:-0}";
+
+  lx_run_job "cleaning up" lx_cleanup;
+
+  lx_report_finished "$error";
 
   exit "$error";
 

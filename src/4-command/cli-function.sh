@@ -34,8 +34,6 @@ ssh() {
 
 gui() {
 
-  echo "new gui()...";
-
   "$LX_DIR_BIN/lx-gui.sh" "$@" || return $?;
 
 }
