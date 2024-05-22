@@ -54,7 +54,8 @@ main() {
 
       lx_note "processing svn: $PWD";
 
-      svn status && svnman sync
+      lx_run svn status
+      lx_run svnman sync
 
     else
 
