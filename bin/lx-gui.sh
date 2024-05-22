@@ -22,7 +22,7 @@ main() {
 
     pushd "$dir" >/dev/null;
 
-    echo -e "$WHITE$PWD:$END";
+    echo -e "$LX_WHITE$PWD:$LX_END";
 
     if [ -d .git ]; then
 
