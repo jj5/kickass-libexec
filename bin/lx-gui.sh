@@ -22,29 +22,43 @@ main() {
 
     pushd "$dir" >/dev/null;
 
-    echo -e "$LX_WHITE$PWD:$LX_END";
+    #echo -e "$LX_WHITE$PWD:$LX_END";
 
-    if [ -d .git ]; then
+    # 2024-05-22 jj5 - NOTE: the .git file can be a file (for submodules) or a directory
+    #
+    if [ -e .git ]; then
+
+      lx_note "processing git: $PWD";
+
+      git status || true;
 
       if git status >/dev/null 2>&1; then
 
-        git pull    || { echo "git pull failed with error level '$?'."; popd; return 1; }
-        git add .   || { echo "git add failed with error level '$?'."; popd; return 1; }
-        git commit -m "Work, work..."
-        git push    || { echo "git push failed with error level '$?'."; popd; return 1; }
-        git status;
+        lx_run git pull
+        lx_run git add .
+        lx_try git commit -m "Work, work..." || true;
+        lx_run git push
+        lx_run git status;
 
       else
 
         # 2019-06-25 jj5 - run git status again so it can output its error msg
         #
-        git status;
+        lx_run git status;
 
       fi;
 
+      lx_note "done";
+
     elif [ -d .svn ]; then
 
+      lx_note "processing svn: $PWD";
+
       svn status && svnman sync
+
+    else
+
+      lx_fail "no version control found.";
 
     fi;
 

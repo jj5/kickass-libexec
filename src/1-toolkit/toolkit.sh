@@ -911,7 +911,7 @@ lx_try() {
 
   else
 
-    lx_report "${LX_LRED}try: fail ${description}; error '$error'.${LX_END}";
+    lx_report "${LX_ORANGE}try: fail ${description}; error '$error'.${LX_END}";
 
   fi
 
