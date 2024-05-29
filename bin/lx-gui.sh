@@ -36,8 +36,7 @@ main() {
 
         lx_run git pull
         lx_run git add .
-        lx_try git commit -m "Work, work..." || true;
-        lx_run git push
+        lx_try git commit -m "Work, work..." || lx_run git push;
         lx_run git status;
 
       else
