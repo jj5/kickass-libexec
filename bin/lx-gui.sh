@@ -38,7 +38,7 @@ main() {
 
         lx_run git add .
 
-        if lx_run git commit -m "Work, work..."; then
+        if lx_try git commit -m "Work, work..."; then
 
           lx_run git push;
 
