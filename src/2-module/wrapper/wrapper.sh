@@ -6,7 +6,7 @@ lx_ssh() {
 
   [ -x /usr/bin/ssh ] || lx_fail "missing /usr/bin/ssh";
 
-  /usr/bin/ssh "$@"   || lx_fail "error running /usr/bin/ssh $@";
+  /usr/bin/ssh "$@";
 
 }
 
@@ -14,7 +14,7 @@ lx_scp() {
 
   [ -x /usr/bin/scp ] || lx_fail "missing /usr/bin/scp";
 
-  /usr/bin/scp "$@"   || lx_fail "error running /usr/bin/scp $@";
+  /usr/bin/scp "$@";
 
 }
 

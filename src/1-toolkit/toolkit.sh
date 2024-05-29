@@ -14,7 +14,7 @@ lx_load_modules() {
 
     if [ -f "$path" ]; then
 
-      source "$path";
+      source "$path" || lx_fail "error loading module file: $path";
 
     else
 
