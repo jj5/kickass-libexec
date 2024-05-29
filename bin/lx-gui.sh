@@ -37,8 +37,13 @@ main() {
       if git status >/dev/null 2>&1; then
 
         lx_run git add .
-        lx_try git commit -m "Work, work..." || true;
-        lx_run git push;
+
+        if git commit -m "Work, work..."; then
+
+          lx_run git push;
+
+        fi;
+
         lx_run git status;
 
       else
