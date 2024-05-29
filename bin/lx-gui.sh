@@ -30,7 +30,7 @@ main() {
 
       lx_note "processing git: $PWD";
 
-      git status || true;
+      #git status || true;
 
       lx_run git pull
 
