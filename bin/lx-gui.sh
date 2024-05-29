@@ -32,9 +32,10 @@ main() {
 
       git status || true;
 
+      lx_run git pull
+
       if git status >/dev/null 2>&1; then
 
-        lx_run git pull
         lx_run git add .
         lx_try git commit -m "Work, work..." || true;
         lx_run git push;
