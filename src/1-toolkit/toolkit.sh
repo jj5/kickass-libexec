@@ -18,7 +18,9 @@ lx_load_modules() {
 
     else
 
-      >&2 echo -e "${LX_RED}missing module file: $path${LX_END}";
+      # >&2 echo -e "${LX_RED}missing module file: $path${LX_END}";
+
+      lx_fail "missing module file: $path"
 
     fi;
 
