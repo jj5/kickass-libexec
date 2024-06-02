@@ -49,6 +49,8 @@ lx_borg_backup() {
   # 2024-03-05 jj5 - we need this for rsync.net compatability...
   args+=( --remote-path borg1 );
 
+  lx_note "running borg create for '$BORG_REPO'...";
+
   lx_run borg create "${args[@]}" ::'{hostname}-{now}' "$@" || {
 
     local error="$?";
@@ -59,6 +61,8 @@ lx_borg_backup() {
 
   # 2024-05-19 JJ5 - OLD:     --prefix '{hostname}-'  \
 
+  lx_note "running borg prune for '$BORG_REPO'...";
+
   lx_run borg prune         \
     --remote-path borg1     \
     --list                  \
@@ -66,6 +70,8 @@ lx_borg_backup() {
     --keep-daily    7       \
     --keep-weekly   4       \
     --keep-monthly  6       ;
+
+  lx_note "running borg check for '$BORG_REPO'...";
 
   # 2024-06-02 jj5 - THINK: remove --verbose from this?
   #
@@ -108,6 +114,8 @@ lx_borg_backup_fast() {
   # 2024-03-05 jj5 - we need this for rsync.net compatability...
   args+=( --remote-path borg1 );
 
+  lx_note "running borg create for '$BORG_REPO'...";
+
   lx_run borg create "${args[@]}" ::'{hostname}-{now}' "$@" || {
 
     local error="$?";
@@ -118,6 +126,8 @@ lx_borg_backup_fast() {
 
   # 2024-05-17 jj5 - OLD: --prefix '{hostname}-'  \
 
+  lx_note "running borg prune for '$BORG_REPO'...";
+
   lx_run borg prune         \
     --remote-path borg1     \
     --list                  \
@@ -125,6 +135,8 @@ lx_borg_backup_fast() {
     --keep-daily    7       \
     --keep-weekly   4       \
     --keep-monthly  6       ;
+
+  lx_note "running borg check for '$BORG_REPO'...";
 
   # 2024-06-02 jj5 - THINK: remove --verbose from this?
   #
