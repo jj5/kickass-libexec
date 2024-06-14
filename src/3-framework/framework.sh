@@ -327,6 +327,10 @@ lx_exit() {
 
   local error="${1:-0}";
 
+  # 2024-06-14 jj5 - disable status reporting if no error...
+  #
+  [ "$error" == '0' ] && LX_STD_STATUS=0;
+
   lx_run_job "cleaning up" lx_cleanup;
 
   lx_report_finished "$error";
