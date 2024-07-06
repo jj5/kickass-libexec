@@ -46,8 +46,6 @@ main() {
 
         lx_note "updating submodule: $submodule";
 
-        #main $submodule;
-
         pushd "$submodule" >/dev/null;
 
           lx_run git add .;
