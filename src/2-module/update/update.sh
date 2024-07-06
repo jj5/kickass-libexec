@@ -27,11 +27,21 @@ lx_update_web() {
 
   local output_device=/dev/null;
 
-  # 2024-07-06 jj5 - TEMP: just for testing...
+  # 2024-07-06 jj5 - NOTE: you can use this for testing...
   #
   #local output_device=/dev/stdout;
 
   pushd "$www_dir" > "$output_device";
+
+    local app_size="$( du -s "$app" | awk '{print $1}' )";
+    local free_space="$( df --output=avail -B1 "$app" | tail -n1 )";
+    local required_space=$(( app_size * 3 ));
+
+    if [ "$free_space" -le "$required_space" ]; then
+
+      lx_fail $LX_EXIT_EXHAUSTED "there is not enough disk space to conduct this operation.";
+
+    fi;
 
     local timestamp="$( lx_timestamp )";
 
