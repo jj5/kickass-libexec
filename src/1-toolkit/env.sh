@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if [ -z "$LX_DEFAULT_USER" ]; then
+if [ -z "${LX_DEFAULT_USER:-}" ]; then
 
   LX_DEFAULT_USER=jj5;
 
 fi;
 
-if [ -z "$LX_DEFAULT_GROUP" ]; then
+if [ -z "${LX_DEFAULT_GROUP:-}" ]; then
 
   if [ "$( uname )" == "Darwin" ]; then
 
