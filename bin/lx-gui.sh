@@ -32,23 +32,25 @@ main() {
 
       #git status || true;
 
-      lx_run git pull --recurse-submodules
+      for submodule in $( git submodule | awk '{ print $2 }' ); do
 
-      #if git status >/dev/null 2>&1; then
+        lx_note "updating submodule: $submodule";
 
-        lx_run git add .
+        main $submodule;
 
-        if lx_try git commit -m "Work, work..."; then
-
-          lx_run git push;
-
-        fi;
-
-      #fi;
+      done;
 
       lx_run git pull --recurse-submodules
 
-      lx_run git submodule update --remote;
+      lx_run git add .
+
+      if lx_try git commit -m "Work, work..."; then
+
+        lx_run git push;
+
+      fi;
+
+      #lx_run git submodule update --remote;
 
       lx_run git status;
 
