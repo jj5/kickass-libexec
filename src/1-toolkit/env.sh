@@ -20,7 +20,7 @@ if [ -z "${LX_DEFAULT_GROUP:-}" ]; then
 
 fi;
 
-if [ -z "$LX_ERROR_EMAIL" ]; then
+if [ -z "${LX_ERROR_EMAIL:-}" ]; then
 
   LX_ERROR_EMAIL="jj5@jj5.net";
 
@@ -43,19 +43,19 @@ LX_STD_TEMPLIST=();
 LX_STD_INFAIL=0;
 LX_STD_INNEED=0;
 
-if [ -z "$LX_ARCHIVE_DIR" ]; then
+if [ -z "${LX_ARCHIVE_DIR:-}" ]; then
 
   LX_ARCHIVE_DIR="$HOME/archive";
 
 fi;
 
-if [ -z "$LX_LOCK_FILE" ]; then
+if [ -z "${LX_LOCK_FILE:-}" ]; then
 
   LX_LOCK_FILE="/var/lock/lx.lock";
 
 fi;
 
-if [ -z "$LX_ZFS_DATA_HOST" ]; then
+if [ -z "${LX_ZFS_DATA_HOST:-}" ]; then
 
   case "$( hostname )" in
 
@@ -75,7 +75,7 @@ if [ -z "$LX_ZFS_DATA_HOST" ]; then
 
 fi;
 
-if [ -z "$LX_ZFS_DATA_ARCHIVE" ]; then
+if [ -z "${LX_ZFS_DATA_ARCHIVE:-}" ]; then
 
   case "$( hostname )" in
 
