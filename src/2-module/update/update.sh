@@ -91,7 +91,11 @@ EOF
 
       pushd "$app" > "$output_device";
 
-        lx_run "$bin_dir/lx-gui.sh";
+        #lx_run "$bin_dir/lx-gui.sh";
+
+        lx_run git pull --recurse-submodules
+
+        lx_run git submodule update --remote;
 
       popd > "$output_device";
 
