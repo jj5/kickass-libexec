@@ -29,6 +29,7 @@ main() {
     if [ -e .git ]; then
 
       # 2024-07-06 jj5 - SEE: https://chatgpt.com/share/0c74a5e2-8d64-48e3-a050-75550d04fa74
+      # 2024-07-07 jj5 - SEE: https://chatgpt.com/share/272b8a2d-48ca-4528-a182-2f82c470fd87
 
       lx_note "processing git: $PWD";
 
