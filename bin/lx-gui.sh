@@ -46,6 +46,24 @@ main() {
 
         #main $submodule;
 
+        pushd "$submodule" >/dev/null;
+
+          lx_run git add .;
+
+          if lx_try git commit -m "Work, work..."; then
+
+            lx_run git push origin main;
+
+          fi;
+
+        popd;
+
+      done;
+
+      for submodule in $( git submodule | awk '{ print $2 }' ); do
+
+        lx_run git add $submodule;
+
       done;
 
       lx_run git add .
