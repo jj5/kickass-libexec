@@ -95,7 +95,8 @@ EOF
 
         lx_run git pull --recurse-submodules
 
-        lx_run git submodule update --remote;
+        # 2024-07-07 jj5 - OLD: don't do this here in this script
+        #lx_run git submodule update --remote;
 
       popd > "$output_device";
 
