@@ -28,6 +28,8 @@ main() {
     #
     if [ -e .git ]; then
 
+      # 2024-07-06 jj5 - SEE: https://chatgpt.com/share/0c74a5e2-8d64-48e3-a050-75550d04fa74
+
       lx_note "processing git: $PWD";
 
       if [ -x bin/dev/version-increment-patch.sh ]; then
