@@ -32,7 +32,7 @@ main() {
 
       #git status || true;
 
-      lx_run git pull
+      lx_run git pull --recurse-submodules
 
       #if git status >/dev/null 2>&1; then
 
@@ -46,7 +46,7 @@ main() {
 
       #fi;
 
-      lx_run git pull
+      lx_run git pull --recurse-submodules
 
       lx_run git submodule update --remote;
 
