@@ -2,6 +2,8 @@
 
 # 2024-02-18 jj5 - these are some helper functions for use in bash scripts.
 
+lx_timestamp() { date +%Y-%m-%d-%H%M%S; }
+
 lx_load_modules() {
 
   local dir="${1:-$LX_DIR_SRC/2-module}";

@@ -44,15 +44,13 @@ main() {
 
         fi;
 
-        lx_run git status;
-
-      else
-
-        # 2019-06-25 jj5 - run git status again so it can output its error msg
-        #
-        lx_run git status;
-
       fi;
+
+      lx_run git pull
+
+      lx_run git submodule update --remote;
+
+      lx_run git status;
 
       lx_note "done";
 

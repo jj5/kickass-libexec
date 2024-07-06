@@ -33,6 +33,10 @@ lx_bootstrap() {
 
   done;
 
+  local arg_list=();
+
+  # 2024-07-06 jj5 - look for arguments we support and process them, otherwise build $arg_list...
+  #
   while [[ "$#" > 0 ]]; do
     case "$1" in
       # 2018-03-05 jj5 - we use '--' to signal end of global flags...
@@ -80,12 +84,23 @@ lx_bootstrap() {
         LX_STD_QUICK_OVERRIDE=1;
         shift;;
       *)
-        break;;
+        arg_list+=( "$1" );
+        shift;;
     esac;
   done;
 
+  # 2024-07-06 jj5 - pull in any remaining arguments...
+  #
+  while [[ "$#" > 0 ]]; do
+
+    arg_list+=( "$1" );
+
+    shift;
+
+  done;
+
   # 2017-05-17 jj5 - DONE: call main (in subshell) and log output...
-  lx_main "$@" 2>&1 | tee "$LX_SCRIPT_LOG";
+  lx_main "${arg_list[@]}" 2>&1 | tee "$LX_SCRIPT_LOG";
 
   # 2017-05-19 jj5 - DONE: read $PIPESTATUS for error level of call to main()
   # which gets invoked in a subshell due to the piping to tee.
