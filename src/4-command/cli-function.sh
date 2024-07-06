@@ -44,7 +44,7 @@ gui() {
 
   #"$LX_DIR_BIN/lx-gui.sh" "$@" || return $?;
 
-  "$LX_DIR_BIN/lx-gui.sh" "$@";
+  time "$LX_DIR_BIN/lx-gui.sh" "$@";
 
   local error="$?"
 

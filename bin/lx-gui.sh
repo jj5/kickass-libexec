@@ -33,7 +33,7 @@ main() {
 
       lx_note "processing git: $PWD";
 
-      lx_run git pull --recurse-submodules
+      lx_run git pull --recurse-submodules;
 
       lx_run git submodule update --remote;
 
@@ -43,9 +43,11 @@ main() {
 
         pushd "$submodule" >/dev/null;
 
-          lx_run git pull --recurse-submodules
-
-          lx_run git submodule update --remote;
+          # 2024-07-07 jj5 - NEW: maybe this will work...
+          #lx_run git pull remote main;
+          # 2024-07-07 jj5 - OLD: we might have a problem if there are recursive submodules? there aren't at the moment.
+          #lx_run git pull --recurse-submodules
+          #lx_run git submodule update --remote;
 
           lx_run git add .;
 
