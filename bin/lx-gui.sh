@@ -43,6 +43,10 @@ main() {
 
         pushd "$submodule" >/dev/null;
 
+          lx_run git pull --recurse-submodules
+
+          lx_run git submodule update --remote;
+
           lx_run git add .;
 
           if lx_try git commit -m "Work, work..."; then
