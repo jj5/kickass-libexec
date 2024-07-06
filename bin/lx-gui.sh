@@ -30,7 +30,7 @@ main() {
 
       lx_note "processing git: $PWD";
 
-      #git status || true;
+      lx_run git pull --recurse-submodules
 
       for submodule in $( git submodule | awk '{ print $2 }' ); do
 
@@ -40,8 +40,6 @@ main() {
 
       done;
 
-      lx_run git pull --recurse-submodules
-
       lx_run git add .
 
       if lx_try git commit -m "Work, work..."; then
@@ -50,7 +48,9 @@ main() {
 
       fi;
 
-      #lx_run git submodule update --remote;
+      lx_run git pull --recurse-submodules
+
+      lx_run git submodule update --remote;
 
       lx_run git status;
 
