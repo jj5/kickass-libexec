@@ -34,7 +34,7 @@ main() {
 
       lx_run git pull
 
-      if git status >/dev/null 2>&1; then
+      #if git status >/dev/null 2>&1; then
 
         lx_run git add .
 
@@ -44,7 +44,7 @@ main() {
 
         fi;
 
-      fi;
+      #fi;
 
       lx_run git pull
 
