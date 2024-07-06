@@ -33,12 +33,6 @@ main() {
 
       lx_note "processing git: $PWD";
 
-      if [ -x bin/dev/version-increment-patch.sh ]; then
-
-        lx_run bin/dev/version-increment-patch.sh;
-
-      fi;
-
       lx_run git pull --recurse-submodules
 
       lx_run git submodule update --remote;
@@ -52,6 +46,16 @@ main() {
           lx_run git add .;
 
           if lx_try git commit -m "Work, work..."; then
+
+            if [ -x bin/dev/version-increment-patch.sh ]; then
+
+              lx_run bin/dev/version-increment-patch.sh;
+
+            fi;
+
+            lx_run git add .
+
+            lx_run git commit -m "Work, work...";
 
             lx_run git push origin main;
 
@@ -70,6 +74,16 @@ main() {
       lx_run git add .
 
       if lx_try git commit -m "Work, work..."; then
+
+        if [ -x bin/dev/version-increment-patch.sh ]; then
+
+          lx_run bin/dev/version-increment-patch.sh;
+
+        fi;
+
+        lx_run git add .
+
+        lx_run git commit -m "Work, work...";
 
         lx_run git push;
 
