@@ -30,13 +30,21 @@ main() {
 
       lx_note "processing git: $PWD";
 
+      if [ -x bin/dev/version-increment-patch.sh ]; then
+
+        lx_run bin/dev/version-increment-patch.sh;
+
+      fi;
+
       lx_run git pull --recurse-submodules
+
+      lx_run git submodule update --remote;
 
       for submodule in $( git submodule | awk '{ print $2 }' ); do
 
         lx_note "updating submodule: $submodule";
 
-        main $submodule;
+        #main $submodule;
 
       done;
 
@@ -54,7 +62,7 @@ main() {
 
       lx_run git status;
 
-      lx_note "done";
+      lx_note "done: $PWD";
 
     elif [ -d .svn ]; then
 
