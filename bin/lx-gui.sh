@@ -51,6 +51,8 @@ main() {
 
           if lx_try git commit -m "Work, work..."; then
 
+            lx_run git push;
+
             if [ -x bin/dev/version-increment-patch.sh ]; then
 
               lx_run bin/dev/version-increment-patch.sh;
@@ -78,6 +80,8 @@ main() {
       lx_run git add .
 
       if lx_try git commit -m "Work, work..."; then
+
+        lx_run git push;
 
         if [ -x bin/dev/version-increment-patch.sh ]; then
 
