@@ -61,7 +61,7 @@ main() {
 
             lx_run git add .
 
-            lx_try git commit -m "Work, work...";
+            lx_try git commit -m "Work, work..." || true;
 
             lx_run git push origin main;
 
@@ -91,7 +91,7 @@ main() {
 
         lx_run git add .
 
-        lx_try git commit -m "Work, work...";
+        lx_try git commit -m "Work, work..." || true;
 
         lx_run git push;
 
