@@ -130,7 +130,7 @@ lx_sync_git() {
 
   fi;
 
-  lx_run git pull --recurse-submodules
+  lx_run git pull --recurse-submodules;
 
   lx_run git submodule update --remote;
 
