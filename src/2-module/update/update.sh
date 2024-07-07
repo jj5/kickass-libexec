@@ -112,4 +112,6 @@ EOF
 
   popd > "$output_device";
 
+  lx_try sudo apache2ctl graceful;
+
 }
