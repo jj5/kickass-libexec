@@ -62,9 +62,9 @@ lx_vcs_sync_git() {
 
   lx_note "processing git: $PWD";
 
-  lx_run git pull --recurse-submodules;
+  #lx_run git submodule update --remote;
 
-  lx_run git submodule update --remote;
+  lx_run git pull --recurse-submodules;
 
   for submodule in $( git submodule | awk '{ print $2 }' ); do
 
@@ -82,7 +82,7 @@ lx_vcs_sync_git() {
 
       if lx_try git commit -m "Work, work..."; then
 
-        lx_run git push;
+        lx_run git push origin main;
 
         # 2024-07-07 jj5 - NEW:
         lx_run lx-version-increment-patch.sh;
@@ -132,7 +132,7 @@ lx_vcs_sync_git() {
 
   lx_run git pull --recurse-submodules;
 
-  lx_run git submodule update --remote;
+  #lx_run git submodule update --remote;
 
   lx_run git status;
 

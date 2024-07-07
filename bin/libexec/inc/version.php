@@ -164,7 +164,7 @@ function write_version_file_php(
   $file[] = "define( '{$const_prefix}_NAME', {$name} );";
   $file[] = "define( '{$const_prefix}_CODE', {$code} );";
   $file[] = '';
-  $file[] = "define( '{$const_prefix}_VERSION', '{$version}' );";
+  $file[] = "//define( '{$const_prefix}_VERSION', '{$version}' );";
   $file[] = "define( '{$const_prefix}_VERSION_MAJOR', {$version_major} );";
   $file[] = "define( '{$const_prefix}_VERSION_MINOR', {$version_minor} );";
   $file[] = "define( '{$const_prefix}_VERSION_PATCH', {$version_patch} );";
