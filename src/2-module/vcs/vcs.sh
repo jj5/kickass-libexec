@@ -86,11 +86,12 @@ lx_sync_git() {
 
         lx_run git push;
 
-        if [ -x bin/dev/version-increment-patch.sh ]; then
-
-          lx_run bin/dev/version-increment-patch.sh;
-
-        fi;
+        # 2024-07-07 jj5 - NEW:
+        lx_run lx-version-increment-patch.sh;
+        # 2024-07-07 jj5 - OLD:
+        #if [ -x bin/dev/version-increment-patch.sh ]; then
+        #  lx_run bin/dev/version-increment-patch.sh;
+        #fi;
 
         lx_run git add .
 
@@ -116,11 +117,12 @@ lx_sync_git() {
 
     lx_run git push;
 
-    if [ -x bin/dev/version-increment-patch.sh ]; then
-
-      lx_run bin/dev/version-increment-patch.sh;
-
-    fi;
+    # 2024-07-07 jj5 - NEW:
+    lx_run lx-version-increment-patch.sh;
+    # 2024-07-07 jj5 - OLD:
+    #if [ -x bin/dev/version-increment-patch.sh ]; then
+    #  lx_run bin/dev/version-increment-patch.sh;
+    #fi;
 
     lx_run git add .
 
