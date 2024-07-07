@@ -4,7 +4,7 @@ LX_LOCK_FILE='/var/lock/lx-gui.lock';
 
 main() {
 
-  lx_sync "$@";
+  lx_vcs_sync "$@";
 
 }
 

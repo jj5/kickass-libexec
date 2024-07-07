@@ -1,8 +1,6 @@
 #!/bin/bash
 
-LX_LOCK_FILE='/var/lock/lx-gui.lock';
-
-lx_sync() {
+lx_vcs_sync() {
 
   local dirs=( "$@" );
 
@@ -28,11 +26,11 @@ lx_sync() {
     #
     if [ -e .git ]; then
 
-      lx_sync_git;
+      lx_vcs_sync_git;
 
     elif [ -d .svn ]; then
 
-      lx_sync_svn;
+      lx_vcs_sync_svn;
 
     else
 
@@ -48,7 +46,7 @@ lx_sync() {
 
 }
 
-lx_sync_svn() {
+lx_vcs_sync_svn() {
 
   lx_note "processing svn: $PWD";
 
@@ -57,7 +55,7 @@ lx_sync_svn() {
 
 }
 
-lx_sync_git() {
+lx_vcs_sync_git() {
 
   # 2024-07-06 jj5 - SEE: https://chatgpt.com/share/0c74a5e2-8d64-48e3-a050-75550d04fa74
   # 2024-07-07 jj5 - SEE: https://chatgpt.com/share/272b8a2d-48ca-4528-a182-2f82c470fd87
