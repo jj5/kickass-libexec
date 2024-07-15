@@ -11,7 +11,17 @@ lx_maint() {
 
     if [ -d "$path" ]; then
 
-      lx_run sudo -u jj5 svn up "$path";
+      lx_quiet pushd "$path";
+
+      [ -e .svn ] && {
+
+        lx_note "running svn up in '$PWD'...";
+
+        lx_run sudo -u jj5 svn up;
+
+      }
+
+      lx_quiet popd;
 
     fi;
 
@@ -32,9 +42,13 @@ lx_maint() {
 
       lx_quiet pushd "$path";
 
-      lx_note "running git pull in '$PWD'...";
+      [ -e .git ] && {
 
-      lx_run sudo git pull;
+        lx_note "running git pull in '$PWD'...";
+
+        lx_run sudo git pull;
+
+      }
 
       lx_quiet popd;
 
