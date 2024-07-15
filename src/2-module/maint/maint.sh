@@ -112,7 +112,7 @@ lx_maint() {
 
     lx_note "will reboot in 30 seconds...";
 
-    echo "sudo shutdown -r now" | at now + 30 seconds;
+    echo "sleep 30; sudo shutdown -r now" | at now;
 
   }
 
