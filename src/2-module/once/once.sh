@@ -103,6 +103,11 @@ lx_once() {
   local process_file="$2";
   local process_fail="$3";
 
+  # 2024-07-15 jj5 - remove forward slashes from variable name, we can probably cope with any other characters in
+  # process name (a directory will be created with this name)
+  #
+  process_name="${process_name//\//-}1";
+
   shift;
   shift;
   shift;

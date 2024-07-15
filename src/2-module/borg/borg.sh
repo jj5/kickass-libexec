@@ -75,7 +75,7 @@ lx_borg_backup() {
 
   # 2024-06-02 jj5 - THINK: remove --verbose from this?
   #
-  lx_run borg check --remote-path borg1 --verbose;
+  lx_once_per_month "borg-check-$BORG_REPO" borg check --remote-path borg1 --verbose;
 
 }
 
@@ -140,6 +140,6 @@ lx_borg_backup_fast() {
 
   # 2024-06-02 jj5 - THINK: remove --verbose from this?
   #
-  lx_run borg check --remote-path borg1 --verbose;
+  lx_once_per_month "borg-check-$BORG_REPO" borg check --remote-path borg1 --verbose;
 
 }
