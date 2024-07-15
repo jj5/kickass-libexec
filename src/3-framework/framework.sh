@@ -318,6 +318,8 @@ lx_main() {
 
     trap lx_drop_lock SIGINT SIGTERM
 
+    lx_daylight;
+
     main "$@";
 
     local error="$?";
