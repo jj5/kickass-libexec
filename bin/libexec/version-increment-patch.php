@@ -11,7 +11,7 @@ require_once( __DIR__ . '/inc/version.php' );
 
 function main( $argv ) {
 
-  get_version_info(
+  $result = get_version_info(
     $const_prefix,
     $version_major,
     $version_minor,
@@ -23,6 +23,8 @@ function main( $argv ) {
     $name,
     $code
   );
+
+  if ( ! $result ) { return 0; }
 
   $version_patch += 2;
 

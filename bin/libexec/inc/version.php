@@ -58,6 +58,8 @@ function get_version_info(
 
   $svn_author = 'Author: ' . get_current_user();
 
+  if ( ! file_exists( APP_VERSION_FILE_PHP ) ) { return false; }
+
   $lines = file( APP_VERSION_FILE_PHP );
 
   for ( $i = 0; $i < count( $lines ); $i++ ) {
