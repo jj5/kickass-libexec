@@ -55,6 +55,12 @@ if [ -z "${LX_LOCK_FILE:-}" ]; then
 
 fi;
 
+if [ -z "${LX_STATE_DIR:-}" ]; then
+
+  LX_STATE_DIR="/var/state/kickass-libexec";
+
+fi;
+
 if [ -z "${LX_ZFS_DATA_HOST:-}" ]; then
 
   case "$( hostname )" in

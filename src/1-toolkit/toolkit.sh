@@ -1161,6 +1161,7 @@ lx_notify() {
   local log_val="${LX_SCRIPT_LOG:-none}";
   local cwd_val="$PWD";
   local lck_val="${LX_LOCK_FILE:-none}";
+  local dat_val="${LX_STATE_DIR:-none}";
 
   local cmd_line=$'\ncmd: '"$cmd_val";
   local sub_line=$'\nsub: '"$sub_val";
@@ -1171,9 +1172,10 @@ lx_notify() {
   local run_line=$'\nrun: '"$runtime_formatted";
   local cwd_line=$'\ncwd: '"$cwd_val";
   local lck_line=$'\nlck: '"$lck_val";
+  local dat_line=$'\ndat: '"$dat_val";
 
   local report=$'\n'"${cmd_line}${sub_line}${dir_line}${usr_line}${sys_line}";
-  local report="Note: $*${report}${log_line}${run_line}${cwd_line}${lck_line}"$'\n\n';
+  local report="Note: $*${report}${log_line}${run_line}${cwd_line}${lck_line}${dat_line}"$'\n\n';
 
   if [ -x "$mailer" ]; then
 
@@ -1417,6 +1419,7 @@ lx_sendlog() {
   local log_val="${LX_SCRIPT_LOG:-none}";
   local cwd_val="$PWD";
   local lck_val="${LX_LOCK_FILE:-none}";
+  local dat_val="${LX_STATE_DIR:-none}";
 
   local cmd_line=$'\ncmd: '"$cmd_val";
   local sub_line=$'\nsub: '"$sub_val";
@@ -1427,9 +1430,10 @@ lx_sendlog() {
   local run_line=$'\nrun: '"$runtime_formatted";
   local cwd_line=$'\ncwd: '"$cwd_val";
   local lck_line=$'\nlck: '"$lck_val";
+  local dat_line=$'\ndat: '"$dat_val";
 
   local report=$'\n'"${cmd_line}${sub_line}${dir_line}${usr_line}${sys_line}";
-  local report="${report}${log_line}${run_line}${cwd_line}${lck_line}"$'\n\n';
+  local report="${report}${log_line}${run_line}${cwd_line}${lck_line}${dat_line}"$'\n\n';
   local logged='<ERROR>';
 
   # 2018-02-04 jj5 - SEE: sed commands stolen from StackOverflow:
