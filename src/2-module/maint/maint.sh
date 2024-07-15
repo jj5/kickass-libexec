@@ -105,6 +105,9 @@ lx_maint() {
     echo "sudo shutdown -r now" | at now + 30 seconds;
 
   }
+
+  return 0;
+
 }
 
 lx_is_snowflake() {
