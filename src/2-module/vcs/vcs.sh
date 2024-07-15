@@ -95,7 +95,7 @@ lx_vcs_sync_git() {
 
         lx_run_as "$user" git push origin main;
 
-        lx_run_as "$user" lx-version-increment-patch.sh;
+        lx_run_as "$user" "$LX_SCRIPT_DIR/lx-version-increment-patch.sh";
 
         lx_run_as "$user" git add .
 
@@ -121,7 +121,7 @@ lx_vcs_sync_git() {
 
     lx_run_as "$user" git push;
 
-    lx_run_as "$user" lx-version-increment-patch.sh;
+    lx_run_as "$user" "$LX_SCRIPT_DIR/lx-version-increment-patch.sh";
 
     lx_run_as "$user" git add .
 
