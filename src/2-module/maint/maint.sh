@@ -40,15 +40,15 @@ lx_maint() {
 
   done;
 
-  lx_run sudo apt update;
+  lx_run sudo DEBIAN_FRONTEND=noninteractive apt update;
 
-  lx_run sudo apt -y dist-upgrade;
+  lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y dist-upgrade;
 
-  lx_run sudo apt -y autoremove;
+  lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y autoremove;
 
   if command -v snap; then
 
-    lx_run sudo snap refresh;
+    lx_run sudo snap refresh --yes;
 
   fi
 
