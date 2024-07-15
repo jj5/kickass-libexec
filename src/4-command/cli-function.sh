@@ -51,3 +51,23 @@ gui() {
   return "$error";
 
 }
+
+maint() {
+
+  if [ -d /srv/libexec ]; then
+
+    pushd /srv/libexec 2>/dev/null;
+
+    sudo git pull;
+
+    popd 2>/dev/null;
+
+  else
+
+    sudo git clone https://github.com/jj5/kickass-libexec /srv/libexec;
+
+  fi;
+
+  "$LX_DIR_BIN/lx-maint.sh" "$@";
+
+}

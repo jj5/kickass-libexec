@@ -28,7 +28,8 @@ alias archive-file-copy="$LX_DIR_BIN/lx-archive-file-copy.sh";
 
 alias rt="$LX_DIR_BIN/lx-run-tests.sh";
 
-alias maint="$LX_DIR_BIN/lx-maint.sh";
+# 2024-07-16 jj5 - OLD: this is a function now...
+#alias maint="$LX_DIR_BIN/lx-maint.sh";
 
 # 2024-03-04 jj5 - NOTE: pass the disk device, e.g. /dev/sda
 alias disk-off='sudo udisksctl power-off -b';
