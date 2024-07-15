@@ -832,6 +832,24 @@ lx_try_run() {
 
 }
 
+lx_run_as() {
+
+  local user="$1";
+
+  shift;
+
+  if [ "$user" == "$( whoami )" ]; then
+
+    lx_run "$@";
+
+  else
+
+    lx_run sudo -u "$user" "$@";
+
+  fi;
+
+}
+
 # 2017-05-19 jj5 - a simple wrapper around run_job() that uses the command
 # itself as the job description...
 lx_run() {
@@ -873,6 +891,24 @@ lx_run_job() {
     lx_fail "$error" "job: fail $description.";
 
   fi
+
+}
+
+lx_try_as() {
+
+  local user="$1";
+
+  shift;
+
+  if [ "$user" == "$( whoami )" ]; then
+
+    lx_try "$@";
+
+  else
+
+    lx_try sudo -u "$user" "$@";
+
+  fi;
 
 }
 

@@ -20,25 +20,25 @@ lx_vcs_sync() {
 
     pushd "$dir" >/dev/null;
 
-    #echo -e "$LX_WHITE$PWD:$LX_END";
+      #echo -e "$LX_WHITE$PWD:$LX_END";
 
-    # 2024-05-22 jj5 - NOTE: the .git file can be a file (for submodules) or a directory
-    #
-    if [ -e .git ]; then
+      # 2024-05-22 jj5 - NOTE: the .git file can be a file (for submodules) or a directory
+      #
+      if [ -e .git ]; then
 
-      lx_vcs_sync_git;
+        #lx_vcs_sync_git;
 
-    elif [ -d .svn ]; then
+      elif [ -d .svn ]; then
 
-      lx_vcs_sync_svn;
+        lx_vcs_sync_svn;
 
-    else
+      else
 
-      lx_warn "no version control found.";
+        lx_warn "no version control found.";
 
-    fi;
+      fi;
 
-    echo;
+      echo;
 
     popd >/dev/null;
 
@@ -48,12 +48,14 @@ lx_vcs_sync() {
 
 lx_vcs_sync_svn() {
 
-  lx_note "processing svn: $PWD";
+  local user="$( ls -l -d . | awk '{ print $3 }' )";
 
-  lx_run svn status
+  lx_note "processing svn dir '$PWD' as user '$user'...";
+
+  lx_run_as "$user" svn status
 
   # 2024-07-16 jj5 - NEW: use full path to this...
-  lx_run /home/jj5/bin/svnman sync
+  lx_run_as "$user" /home/jj5/bin/svnman sync
   # 2024-07-16 jj5 - OLD:
   #lx_run svnman sync
 
