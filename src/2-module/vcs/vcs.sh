@@ -20,6 +20,8 @@ lx_vcs_sync() {
 
     pushd "$dir" >/dev/null;
 
+      lx_note "updating '$dir'...";
+
       #echo -e "$LX_WHITE$PWD:$LX_END";
 
       # 2024-05-22 jj5 - NOTE: the .git file can be a file (for submodules) or a directory
