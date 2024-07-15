@@ -15,9 +15,11 @@ lx_maint() {
 
       [ -e .svn ] && {
 
-        lx_note "running svn up in '$PWD'...";
+        local user="$( ls -l -d . | awk '{ print $3 }' )";
 
-        lx_run sudo -u jj5 svn up;
+        lx_note "running svn up in '$PWD' for user '$user'...";
+
+        lx_run_as "$user" svn up;
 
       }
 
@@ -44,9 +46,11 @@ lx_maint() {
 
       [ -e .git ] && {
 
-        lx_note "running git pull in '$PWD'...";
+        local user="$( ls -l -d . | awk '{ print $3 }' )";
 
-        lx_run sudo git pull;
+        lx_note "running git pull in '$PWD' for user '$user'...";
+
+        lx_run_as "$user" git pull;
 
       }
 

@@ -58,9 +58,11 @@ maint() {
 
     pushd /srv/libexec 2>/dev/null;
 
-    lx_note "running git pull in '$PWD'...";
+      local user="$( ls -l -d . | awk '{ print $3 }' )";
 
-    sudo git pull;
+      lx_note "running git pull in '$PWD' as user '$user'...";
+
+      sudo -u "$user" git pull;
 
     popd 2>/dev/null;
 

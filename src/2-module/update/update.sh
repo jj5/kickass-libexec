@@ -93,9 +93,11 @@ EOF
 
         #lx_run "$bin_dir/lx-gui.sh";
 
-        lx_note "running git pull in '$PWD'...";
+        local user="$( ls -l -d . | awk '{ print $3 }' )";
 
-        lx_run git pull --recurse-submodules
+        lx_note "running git pull in '$PWD' as user '$user'...";
+
+        lx_run_as "$user" git pull --recurse-submodules
 
         # 2024-07-07 jj5 - OLD: don't do this here in this script
         #lx_run git submodule update --remote;
