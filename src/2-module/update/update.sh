@@ -93,6 +93,8 @@ EOF
 
         #lx_run "$bin_dir/lx-gui.sh";
 
+        lx_note "running git pull in '$PWD'...";
+
         lx_run git pull --recurse-submodules
 
         # 2024-07-07 jj5 - OLD: don't do this here in this script

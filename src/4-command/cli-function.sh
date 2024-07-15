@@ -58,6 +58,8 @@ maint() {
 
     pushd /srv/libexec 2>/dev/null;
 
+    lx_note "running git pull in '$PWD'...";
+
     sudo git pull;
 
     popd 2>/dev/null;

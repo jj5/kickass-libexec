@@ -64,6 +64,8 @@ lx_vcs_sync_git() {
 
   #lx_run git submodule update --remote;
 
+  lx_note "running git pull in '$PWD'...";
+
   lx_run git pull --recurse-submodules;
 
   for submodule in $( git submodule | awk '{ print $2 }' ); do
@@ -129,6 +131,8 @@ lx_vcs_sync_git() {
     lx_run git push;
 
   fi;
+
+  lx_note "running git pull in '$PWD'...";
 
   lx_run git pull --recurse-submodules;
 

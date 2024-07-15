@@ -32,6 +32,8 @@ lx_maint() {
 
       lx_quiet pushd "$path";
 
+      lx_note "running git pull in '$PWD'...";
+
       lx_run sudo git pull;
 
       lx_quiet popd;
