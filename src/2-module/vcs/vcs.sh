@@ -51,7 +51,11 @@ lx_vcs_sync_svn() {
   lx_note "processing svn: $PWD";
 
   lx_run svn status
-  lx_run svnman sync
+
+  # 2024-07-16 jj5 - NEW: use full path to this...
+  lx_run /home/jj5/bin/svnman sync
+  # 2024-07-16 jj5 - OLD:
+  #lx_run svnman sync
 
 }
 
