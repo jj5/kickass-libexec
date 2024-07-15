@@ -26,7 +26,7 @@ lx_vcs_sync() {
       #
       if [ -e .git ]; then
 
-        #lx_vcs_sync_git;
+        lx_vcs_sync_git;
 
       elif [ -d .svn ]; then
 
