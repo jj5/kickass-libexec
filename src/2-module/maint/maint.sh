@@ -102,6 +102,8 @@ lx_maint() {
 
     lx_note "reboot required; will reboot in 30 seconds...";
 
+    command -v at || sudo DEBIAN_FRONTEND=noninteractive apt install at;
+
     echo "sudo shutdown -r now" | at now + 30 seconds;
 
   }
