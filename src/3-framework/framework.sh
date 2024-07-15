@@ -330,7 +330,7 @@ lx_main() {
 
   if [ "$error" != 44 ]; then
 
-    lx_drop_lock;
+    lx_drop_lock || true;
 
   fi;
 
