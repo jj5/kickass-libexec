@@ -8,9 +8,6 @@ lx_once_per_year() {
 
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-
-  #formatted_time=$(date -d "$current_time" +"%Y-%m-%d %H:%M:%S")
-
   local process_dir="$LX_STATE_DIR/$process_name";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
@@ -30,9 +27,6 @@ lx_once_per_month() {
 
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-
-  #formatted_time=$(date -d "$current_time" +"%Y-%m-%d %H:%M:%S")
-
   local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y" )";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
@@ -52,9 +46,6 @@ lx_once_per_week() {
 
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-
-  #formatted_time=$(date -d "$current_time" +"%Y-%m-%d %H:%M:%S")
-
   local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y/%m" )";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
@@ -76,9 +67,6 @@ lx_once_per_day() {
 
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-
-  #formatted_time=$(date -d "$current_time" +"%Y-%m-%d %H:%M:%S")
-
   local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y/%m" )";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
@@ -98,7 +86,6 @@ lx_once_per_hour() {
 
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-
   local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y/%m/%d" )";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
@@ -166,9 +153,9 @@ lx_once_get_week() {
   #
   local input_date="$1";
 
-  # 2024-07-15 jj5 - get the day of the month for the specific date
+  # 2024-07-15 jj5 - get the day of the month (without leading zeros) for the specific date
   #
-  local day_of_month=$( date -d "$input_date" +%d );
+  local day_of_month=$( date -d "$input_date" +%-d );
 
   # 2024-07-15 jj5 - get the day of the week for the specific date (1-7, Monday is 1)
   #
