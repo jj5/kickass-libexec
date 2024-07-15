@@ -98,6 +98,13 @@ lx_maint() {
 
   fi;
 
+  [ -f /var/run/reboot-required ] && {
+
+    lx_note "reboot required; will reboot in 30 seconds...";
+
+    echo "sudo shutdown -r now" | at now + 30 seconds;
+
+  }
 }
 
 lx_is_snowflake() {

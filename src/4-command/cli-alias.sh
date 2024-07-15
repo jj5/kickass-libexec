@@ -36,3 +36,5 @@ alias disk-off='sudo udisksctl power-off -b';
 alias commit='time bin/dev/commit.sh';
 alias deploy='time bin/admin/deploy.sh';
 alias push='time bin/dev/push.sh';
+
+alias list-open="$LX_DIR_BIN/lx-netstat-list-open.sh";
