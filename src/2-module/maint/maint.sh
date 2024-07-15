@@ -134,7 +134,7 @@ lx_maint() {
 
       lx_note "installing required 'at' command.";
       
-      sudo DEBIAN_FRONTEND=noninteractive apt install at;
+      sudo DEBIAN_FRONTEND=noninteractive apt -y install at;
 
     };
 
