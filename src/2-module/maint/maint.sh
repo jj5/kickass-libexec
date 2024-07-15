@@ -170,3 +170,32 @@ lx_is_snowflake() {
   return 1;
 
 }
+
+
+lx_maint_run_if_online() {
+
+  local host="$1";
+
+  if lx_is_online "$host"; then
+
+    lx_maint_run "$host";
+
+  else
+
+    lx_note "host '$host' is offline.";
+
+  fi;
+
+}
+
+lx_maint_run() {
+
+  local host="$1";
+
+  local user="$( lx_ssh "$host" ls -l -d /srv/libexec | awk '{ print $3 }' )";
+
+  lx_run lx_ssh "$host" "cd /srv/libexec && sudo -u "$user" git pull";
+
+  lx_run lx_ssh "$host" /srv/libexec/bin/lx-maint.sh;
+
+}
