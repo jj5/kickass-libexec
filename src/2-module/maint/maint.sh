@@ -64,7 +64,7 @@ lx_maint() {
 
   command -v needrestart || {
 
-    lx_run sudo DEBIAN_FRONTEND=noninteractive apt install needrestart;
+    lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y install needrestart;
 
   }
 
