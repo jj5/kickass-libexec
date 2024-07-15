@@ -25,21 +25,21 @@ lx_daylight() {
   local two_hours_before_offset=$(  date -d @${two_hours_before}  +%z | awk '{print ($1 / 100) * 3600}');
   local two_hours_later_offset=$(   date -d @${two_hours_later}   +%z | awk '{print ($1 / 100) * 3600}');
 
-  # 2024-07-16 jj5 - check if the offset changes within two hours either side of the curren time
+  # 2024-07-16 jj5 - check if the offset changes within two hours either side of the current time
   #
   if [ "$current_offset" -ne "$two_hours_before_offset" ]; then
 
     lx_note "daylight savings just changed, will sleep for 2 hours.";
 
     sleep 2h;
-    sleep 30;
+    sleep 37;
 
   elif [ "$current_offset" -ne "$two_hours_later_offset" ]; then
 
     lx_note "daylight savings is about to change, will sleep for 4 hours.";
 
     sleep 4h;
-    sleep 30;
+    sleep 37;
 
   fi
 
