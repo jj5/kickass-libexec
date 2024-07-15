@@ -48,7 +48,7 @@ lx_maint() {
 
   if command -v snap; then
 
-    lx_run sudo snap refresh --yes;
+    lx_run sudo snap refresh;
 
   fi
 
