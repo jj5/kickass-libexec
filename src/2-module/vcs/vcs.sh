@@ -68,17 +68,18 @@ lx_vcs_sync_git() {
   # 2024-07-06 jj5 - SEE: https://chatgpt.com/share/0c74a5e2-8d64-48e3-a050-75550d04fa74
   # 2024-07-07 jj5 - SEE: https://chatgpt.com/share/272b8a2d-48ca-4528-a182-2f82c470fd87
 
-  lx_note "processing git: $PWD";
+  local user="$( ls -l -d . | awk '{ print $3 }' )";
+
+  lx_note "processing git dir '$PWD' as user '$user'...";
 
   #lx_run git submodule update --remote;
+  #lx_note "running git pull in '$PWD'...";
 
-  lx_note "running git pull in '$PWD'...";
+  lx_run_as "$user" git pull --recurse-submodules;
 
-  lx_run git pull --recurse-submodules;
+  for submodule in $( sudo -u "$user" git submodule | awk '{ print $2 }' ); do
 
-  for submodule in $( git submodule | awk '{ print $2 }' ); do
-
-    lx_note "updating submodule: $submodule";
+    lx_note "updating git submodule: $submodule";
 
     pushd "$submodule" >/dev/null;
 
@@ -88,24 +89,19 @@ lx_vcs_sync_git() {
       #lx_run git pull --recurse-submodules
       #lx_run git submodule update --remote;
 
-      lx_run git add .;
+      lx_run_as "$user" git add .;
 
-      if lx_try git commit -m "Work, work..."; then
+      if lx_try_as "$user" git commit -m "Work, work..."; then
 
-        lx_run git push origin main;
+        lx_run_as "$user" git push origin main;
 
-        # 2024-07-07 jj5 - NEW:
-        lx_run lx-version-increment-patch.sh;
-        # 2024-07-07 jj5 - OLD:
-        #if [ -x bin/dev/version-increment-patch.sh ]; then
-        #  lx_run bin/dev/version-increment-patch.sh;
-        #fi;
+        lx_run_as "$user" lx-version-increment-patch.sh;
 
-        lx_run git add .
+        lx_run_as "$user" git add .
 
-        lx_try git commit -m "Work, work..." || true;
+        lx_try_as "$user" git commit -m "Work, work..." || true;
 
-        lx_run git push origin main;
+        lx_run_as "$user" git push origin main;
 
       fi;
 
@@ -113,41 +109,32 @@ lx_vcs_sync_git() {
 
   done;
 
-  for submodule in $( git submodule | awk '{ print $2 }' ); do
+  for submodule in $( sudo -u "$user" git submodule | awk '{ print $2 }' ); do
 
-    lx_run git add $submodule;
+    lx_run_as "$user" git add $submodule;
 
   done;
 
-  lx_run git add .
+  lx_run_as "$user" git add .
 
-  if lx_try git commit -m "Work, work..."; then
+  if lx_try_as "$user" git commit -m "Work, work..."; then
 
-    lx_run git push;
+    lx_run_as "$user" git push;
 
-    # 2024-07-07 jj5 - NEW:
-    lx_run lx-version-increment-patch.sh;
-    # 2024-07-07 jj5 - OLD:
-    #if [ -x bin/dev/version-increment-patch.sh ]; then
-    #  lx_run bin/dev/version-increment-patch.sh;
-    #fi;
+    lx_run_as "$user" lx-version-increment-patch.sh;
 
-    lx_run git add .
+    lx_run_as "$user" git add .
 
-    lx_try git commit -m "Work, work..." || true;
+    lx_try_as "$user" git commit -m "Work, work..." || true;
 
-    lx_run git push;
+    lx_run_as "$user" git push;
 
   fi;
 
   lx_note "running git pull in '$PWD'...";
 
-  lx_run git pull --recurse-submodules;
+  lx_run_as "$user" git pull --recurse-submodules;
 
-  #lx_run git submodule update --remote;
-
-  lx_run git status;
-
-  lx_note "done: $PWD";
+  lx_run_as "$user" git status;
 
 }
