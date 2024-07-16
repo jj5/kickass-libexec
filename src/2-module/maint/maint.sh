@@ -142,7 +142,7 @@ lx_maint() {
 
     lx_run lx_schedule_reboot;
 
-  elif needrestart -r -a | grep 'Service restarts being deferred'; then
+  elif needrestart -r a | grep 'Service restarts being deferred'; then
 
     lx_run lx_schedule_reboot;
 
