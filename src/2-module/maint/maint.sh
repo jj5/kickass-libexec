@@ -68,7 +68,7 @@ lx_maint() {
 
   }
 
-  lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y dist-upgrade;
+  lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y upgrade;
 
   lx_run sudo needrestart -r a;
 
