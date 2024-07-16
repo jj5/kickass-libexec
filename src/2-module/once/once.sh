@@ -185,7 +185,7 @@ lx_once_get_slug() {
 
 lx_once_get_week() {
 
-  # 2024-07-15 jj5 - get the specific date from input (format: YYYY-MM-DD)
+  # 2024-07-15 jj5 - get the specific date from input...
   #
   local input_date="$1";
 
