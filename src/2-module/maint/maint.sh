@@ -138,25 +138,35 @@ lx_maint() {
 
   fi;
 
-  [ -f /var/run/reboot-required ] && {
+  if [ -f /var/run/reboot-required ]; then
 
-    lx_note "reboot required";
+    lx_run lx_schedule_reboot;
 
-    command -v at || {
+  elif needrestart -r -a | grep 'Service restarts being deferred'; then
 
-      lx_note "installing required 'at' command.";
-      
-      sudo DEBIAN_FRONTEND=noninteractive apt -y install at;
+    lx_run lx_schedule_reboot;
 
-    };
-
-    lx_note "will reboot in 30 seconds...";
-
-    echo "sleep 30; sudo shutdown -r now" | at now;
-
-  }
+  fi
 
   return 0;
+
+}
+
+lx_schedule_reboot() {
+
+  lx_note "reboot required";
+
+  command -v at || {
+
+    lx_note "installing required 'at' command.";
+    
+    lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y install at;
+
+  };
+
+  lx_note "will reboot in 30 seconds...";
+
+  echo "sleep 30; sudo shutdown -r now" | at now;
 
 }
 
