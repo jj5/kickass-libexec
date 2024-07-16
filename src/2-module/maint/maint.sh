@@ -70,7 +70,7 @@ lx_maint() {
 
   lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y dist-upgrade;
 
-  lx_run sudo needrestart;
+  lx_run sudo needrestart -r a;
 
   lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y autoremove;
 
