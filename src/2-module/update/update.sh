@@ -72,7 +72,7 @@ lx_update_web() {
 
     lx_run tar cf "$tarball" "$app";
 
-    lx_run mkdir "$timestamp";
+    lx_run sudo mkdir "$timestamp";
 
     pushd "$timestamp" > "$output_device";
 
@@ -104,15 +104,15 @@ EOF
 
       popd > "$output_device";
 
-      lx_run mkdir "backup";
+      lx_run sudo mkdir "backup";
 
-      lx_run mv "../$app" "backup/";
+      lx_run sudo mv "../$app" "backup/";
 
-      lx_run mv "$app" "../";
+      lx_run sudo mv "$app" "../";
 
     popd > "$output_device";
 
-    lx_run mv "$timestamp" "$archive_dir/";
+    lx_run sudo mv "$timestamp" "$archive_dir/";
 
   popd > "$output_device";
 
