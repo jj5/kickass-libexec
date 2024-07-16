@@ -2,60 +2,60 @@
 
 lx_once_per_year() {
 
-  local process_text="$1";
+  local process_name="$1";
   
   shift;
 
   lx_once_validate_env;
 
-  local process_name="$( lx_once_get_name "$process_text" )";
+  local process_slug="$( lx_once_get_slug "$process_name" )";
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-  local process_dir="$LX_STATE_DIR/$process_name";
+  local process_dir="$LX_STATE_DIR/$process_slug";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
 
   local process_file="$process_dir/year-$( date -d "$current_time" +"%Y" ).log"
   local process_fail="$process_dir/year-$( date -d "$current_time" +"%Y" )-fail-$timestamp.log"
 
-  lx_run lx_once "$process_text" "$process_name" "$process_file" "$process_fail" "$@";
+  lx_run lx_once "$process_name" "$process_slug" "$process_file" "$process_fail" "$@";
 
 }
 
 lx_once_per_month() {
 
-  local process_text="$1";
+  local process_name="$1";
   
   shift;
 
   lx_once_validate_env;
 
-  local process_name="$( lx_once_get_name "$process_text" )";
+  local process_slug="$( lx_once_get_slug "$process_name" )";
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-  local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y" )";
+  local process_dir="$LX_STATE_DIR/$process_slug/$( date -d "$current_time" +"%Y" )";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
 
   local process_file="$process_dir/month-$( date -d "$current_time" +"%m" ).log"
   local process_fail="$process_dir/month-$( date -d "$current_time" +"%m" )-fail-$timestamp.log"
 
-  lx_run lx_once "$process_text" "$process_name" "$process_file" "$process_fail" "$@";
+  lx_run lx_once "$process_name" "$process_slug" "$process_file" "$process_fail" "$@";
 
 }
 
 lx_once_per_week() {
 
-  local process_text="$1";
+  local process_name="$1";
   
   shift;
 
   lx_once_validate_env;
 
-  local process_name="$( lx_once_get_name "$process_text" )";
+  local process_slug="$( lx_once_get_slug "$process_name" )";
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-  local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y/%m" )";
+  local process_dir="$LX_STATE_DIR/$process_slug/$( date -d "$current_time" +"%Y/%m" )";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
 
@@ -64,51 +64,51 @@ lx_once_per_week() {
   local process_file="$process_dir/week-$current_week.log"
   local process_fail="$process_dir/week-$current_week-fail-$timestamp.log"
 
-  lx_run lx_once "$process_text" "$process_name" "$process_file" "$process_fail" "$@";
+  lx_run lx_once "$process_name" "$process_slug" "$process_file" "$process_fail" "$@";
 
 }
 
 lx_once_per_day() {
 
-  local process_text="$1";
+  local process_name="$1";
   
   shift;
 
   lx_once_validate_env;
 
-  local process_name="$( lx_once_get_name "$process_text" )";
+  local process_slug="$( lx_once_get_slug "$process_name" )";
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-  local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y/%m" )";
+  local process_dir="$LX_STATE_DIR/$process_slug/$( date -d "$current_time" +"%Y/%m" )";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
 
   local process_file="$process_dir/day-$( date -d "$current_time" +"%d" ).log"
   local process_fail="$process_dir/day-$( date -d "$current_time" +"%d" )-fail-$timestamp.log"
 
-  lx_run lx_once "$process_text" "$process_name" "$process_file" "$process_fail" "$@";
+  lx_run lx_once "$process_name" "$process_slug" "$process_file" "$process_fail" "$@";
 
 }
 
 lx_once_per_hour() {
 
-  local process_text="$1";
+  local process_name="$1";
   
   shift;
 
   lx_once_validate_env;
 
-  local process_name="$( lx_once_get_name "$process_text" )";
+  local process_slug="$( lx_once_get_slug "$process_name" )";
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
-  local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y/%m/%d" )";
+  local process_dir="$LX_STATE_DIR/$process_slug/$( date -d "$current_time" +"%Y/%m/%d" )";
 
   [ ! -d "$process_dir" ] && lx_run mkdir -p "$process_dir";
 
   local process_file="$process_dir/hour-$( date -d "$current_time" +"%H" ).log"
   local process_fail="$process_dir/hour-$( date -d "$current_time" +"%H" )-fail-$timestamp.log"
 
-  lx_run lx_once "$process_text" "$process_name" "$process_file" "$process_fail" "$@";
+  lx_run lx_once "$process_name" "$process_slug" "$process_file" "$process_fail" "$@";
 
 }
 
@@ -134,8 +134,8 @@ lx_once_validate_env() {
 
 lx_once() {
 
-  local process_text="$1";
-  local process_name="$2";
+  local process_name="$1";
+  local process_slug="$2";
   local process_file="$3";
   local process_fail="$4";
 
@@ -143,7 +143,7 @@ lx_once() {
 
   [ -e "$process_file" ] && {
 
-    lx_note "process '$process_text' has already been run for this period as indicated by '$process_file'.";
+    lx_note "process '$process_name' has already been run for this period as indicated by '$process_file'.";
 
     return 0;
 
@@ -151,7 +151,7 @@ lx_once() {
 
   [ -e "$process_fail" ] && {
 
-    lx_fail "$LX_EXIT_BAD_ENVIRONMENT" "the failure log file '$process_fail' for process '$process_text' already exists.";
+    lx_fail "$LX_EXIT_BAD_ENVIRONMENT" "the failure log file '$process_fail' for process '$process_name' already exists.";
 
   }
 
@@ -181,16 +181,16 @@ lx_once() {
 
 }
 
-lx_once_get_name() {
+lx_once_get_slug() {
 
-  local name="$1";
+  local slug="$1";
 
   # 2024-07-15 jj5 - remove forward slashes from variable name, we can probably cope with any other characters in
   # process name (a directory will be created with this name)
   #
-  name="${name//\//-}1";
+  slug="${slug//\//-}1";
 
-  echo "$name";
+  echo "$slug";
 
 }
 
