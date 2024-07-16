@@ -142,7 +142,7 @@ lx_maint() {
 
     lx_run lx_schedule_reboot;
 
-  elif needrestart -r a | grep 'Service restarts being deferred'; then
+  elif needrestart -r l | grep 'Service restarts being deferred'; then
 
     lx_run lx_schedule_reboot;
 
@@ -226,6 +226,8 @@ lx_maint_run() {
   lx_run lx_ssh "$host" "cd /srv/libexec && sudo -u "$user" git pull";
 
   lx_run lx_ssh "$host" /srv/libexec/bin/lx-maint.sh;
+
+  lx_run lx_ssh "$host" sudo needrestart -r l;
 
   lx_note "maint has completed on '$host', will sleep for two minutes.";
 
