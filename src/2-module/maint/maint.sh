@@ -142,7 +142,7 @@ lx_maint() {
 
     lx_run lx_schedule_reboot;
 
-  elif needrestart -r l | grep 'Service restarts being deferred'; then
+  elif needrestart -b -r l | grep 'NEEDRESTART-SVC:'; then
 
     lx_run lx_schedule_reboot;
 
@@ -228,6 +228,8 @@ lx_maint_run() {
   lx_run lx_ssh "$host" /srv/libexec/bin/lx-maint.sh;
 
   lx_run lx_ssh "$host" sudo needrestart -r l;
+
+  lx_run lx_ssh "$host" sudo needrestart -b -r l;
 
   lx_note "maint has completed on '$host', will sleep for two minutes.";
 
