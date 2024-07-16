@@ -177,7 +177,7 @@ lx_once_get_slug() {
   # 2024-07-15 jj5 - remove forward slashes from variable name, we can probably cope with any other characters in
   # process name (a directory will be created with this name)
   #
-  slug="${slug//\//-}1";
+  slug="${slug//\//-}";
 
   echo "$slug";
 
