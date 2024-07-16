@@ -54,9 +54,7 @@ lx_maint() {
 
             lx_run_as "$user" git pull;
 
-          fi;
-
-          if [ -e .svn ]; then
+          elif [ -e .svn ]; then
 
             local user="$( ls -l -d . | awk '{ print $3 }' )";
 
