@@ -201,7 +201,6 @@ lx_is_snowflake() {
 
 }
 
-
 lx_maint_run_if_online() {
 
   local host="$1";
@@ -227,5 +226,9 @@ lx_maint_run() {
   lx_run lx_ssh "$host" "cd /srv/libexec && sudo -u "$user" git pull";
 
   lx_run lx_ssh "$host" /srv/libexec/bin/lx-maint.sh;
+
+  lx_note "maint has completed on '$host', will sleep for two minutes.";
+
+  sleep 120;
 
 }
