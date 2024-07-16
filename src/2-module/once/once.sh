@@ -123,10 +123,10 @@ lx_once() {
 
   }
 
-  echo "init.....: $( date )"         >> $process_file;
-  echo "host.....: $( hostname -f )"  >> $process_file;
-  echo "user.....: $( whoami )"       >> $process_file;
-  echo "command..: $@"                >> $process_file;
+  echo "start.....: $( date )"         >> $process_file;
+  echo "host......: $( hostname -f )"  >> $process_file;
+  echo "user......: $( whoami )"       >> $process_file;
+  echo "command...: $@"                >> $process_file;
 
   local error_level='?';
 
@@ -140,8 +140,8 @@ lx_once() {
 
   fi;
 
-  echo "error....: $error_level"  >> $process_file;
-  echo "done.....: $( date )"     >> $process_file;
+  echo "error.....: $error_level"  >> $process_file;
+  echo "complete..: $( date )"     >> $process_file;
 
   [ $error_level != '0' ] && { mv "$process_file" "$process_fail"; }
 
