@@ -123,10 +123,11 @@ lx_once() {
 
   }
 
-  echo "start.....: $( date )"         >> $process_file;
-  echo "host......: $( hostname -f )"  >> $process_file;
-  echo "user......: $( whoami )"       >> $process_file;
-  echo "command...: $@"                >> $process_file;
+  echo "start.....: $( date )"        >> $process_file;
+  echo "process...: $process_name"    >> $process_file;
+  echo "host......: $( hostname -f )" >> $process_file;
+  echo "user......: $( whoami )"      >> $process_file;
+  echo "command...: $@"               >> $process_file;
 
   local error_level='?';
 
