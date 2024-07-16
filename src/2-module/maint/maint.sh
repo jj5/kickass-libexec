@@ -29,34 +29,48 @@ lx_maint() {
 
   done;
 
-  local git_wc_list=(
-    /srv/libexec
-    /srv/admin
-    /srv/pillar
-    /srv/salt
-    /srv/netprov
-    /srv/nv3
+  local check_list=(
+    /srv
+    /var/www
   );
 
-  for path in "${git_wc_list[@]}"; do
+  for path in "${check_list[@]}"; do
 
-    if [ -d "$path" ]; then
+    [ -d "$path" ] || continue;
 
-      lx_quiet pushd "$path";
+    lx_quiet pushd "$path";
 
-      [ -e .git ] && {
+      for dir in *; do
 
-        local user="$( ls -l -d . | awk '{ print $3 }' )";
+        [ -d "$dir" ] || continue;
 
-        lx_note "running git pull in '$PWD' for user '$user'...";
+        lx_quiet pushd "$dir";
 
-        lx_run_as "$user" git pull;
+          if [ -e .git ]; then
 
-      }
+            local user="$( ls -l -d . | awk '{ print $3 }' )";
 
-      lx_quiet popd;
+            lx_note "running git pull in '$PWD' for user '$user'...";
 
-    fi;
+            lx_run_as "$user" git pull;
+
+          fi;
+
+          if [ -e .svn ]; then
+
+            local user="$( ls -l -d . | awk '{ print $3 }' )";
+
+            lx_note "running svn up in '$PWD' for user '$user'...";
+
+            lx_run_as "$user" svn up;
+
+          fi;
+
+        lx_quiet popd;
+
+      done;
+
+    lx_quiet popd;
 
   done;
 
