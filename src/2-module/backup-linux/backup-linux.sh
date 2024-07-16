@@ -1,5 +1,17 @@
 #!/bin/bash
 
+lx_backup_linux_host_if_online() {
+
+  local host="$1";
+
+  if lx_is_online "$host"; then
+
+    lx_backup_linux_host "$@";
+
+  fi
+
+}
+
 lx_backup_linux_host() {
 
   lx_backup_linux_host_internal lx_backup_linux_dir "$@";
