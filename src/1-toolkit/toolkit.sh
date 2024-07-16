@@ -1897,7 +1897,7 @@ lx_remove_emergency_workspace() {
   
   [ -d "${LX_WORKSPACE:-}" ] && {
 
-    lx_run rm -rf "$LX_WORKSPACE";
+    rm -rf "$LX_WORKSPACE";
 
   };
 

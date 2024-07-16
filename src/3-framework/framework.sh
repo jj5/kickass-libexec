@@ -278,11 +278,11 @@ lx_drop_lock() {
 
   if sudo -v 2>/dev/null; then
 
-    sudo rm -f "$lockfile" || true;
+    sudo rm -f "$lockfile" || sudo rm -f "$lockfile" || sudo rm -f "$lockfile" || true;
 
   else
 
-    rm -f "$lockfile" || true;
+    rm -f "$lockfile" || rm -f "$lockfile" || rm -f "$lockfile" || true;
 
   fi;
 
@@ -335,7 +335,7 @@ lx_main() {
 
   local error="$?";
 
-  if [ "$error" != 44 ]; then
+  if [ "$error" != "$LX_EXIT_NO_LOCK" ]; then
 
     lx_drop_lock || true;
 

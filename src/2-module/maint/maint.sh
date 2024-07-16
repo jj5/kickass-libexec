@@ -156,6 +156,16 @@ lx_schedule_reboot() {
 
   lx_note "reboot required";
 
+  case "$HOSTNAME" in
+
+    charisma)
+
+      lx_note "will not automatically reboot this host.";
+
+      return 0;;
+
+  esac;
+
   command -v at || {
 
     lx_note "installing required 'at' command.";
