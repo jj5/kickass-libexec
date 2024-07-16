@@ -109,7 +109,19 @@ lx_once_per_hour() {
 
 lx_once_validate_env() {
 
-  [ -d "$LX_STATE_DIR" ] || lx_fail "$LX_EXIT_FILE_MISSING" "state directory '$LX_STATE_DIR' missing.";
+  [ -d "$LX_STATE_DIR" ] || {
+
+    local container="$( dirname "$LX_STATE_DIR" )";
+
+    [ -d "$container" ] || {
+
+      lx_fail "$LX_EXIT_FILE_MISSING" "state directory '$container' missing.";
+
+    };
+
+    lx_run mkdir "$LX_STATE_DIR";
+
+  }
 
   return 0;
 
