@@ -74,6 +74,8 @@ lx_update_web() {
 
     lx_run sudo mkdir "$timestamp";
 
+    lx_run sudo chown "$( whoami ):$( id -g -n )" "$timestamp";
+
     pushd "$timestamp" > "$output_device";
 
       cat <<EOF > archive-note.txt
