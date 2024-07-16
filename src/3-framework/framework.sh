@@ -316,7 +316,10 @@ lx_main() {
 
     set -euo pipefail;
 
-    trap lx_drop_lock SIGINT SIGTERM
+    # 2024-07-17 jj5 - NEW: gonna try EXIT, the others didn't seem to do it...
+    trap lx_drop_lock EXIT
+    # 2024-07-17 jj5 - OLD:
+    #trap lx_drop_lock SIGINT SIGTERM
 
     lx_daylight;
 
