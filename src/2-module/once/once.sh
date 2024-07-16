@@ -199,7 +199,7 @@ lx_once_get_week() {
 
   # 2024-07-15 jj5 - calculate the week of the month
   #
-  week_of_month=$(( ( day_of_month + 6 - day_of_week ) / 7 + 1 ));
+  local week_of_month=$(( ( day_of_month + 6 - day_of_week ) / 7 + 1 ));
 
   # 2024-07-15 jj5 - print the week of the month
   #
