@@ -278,13 +278,15 @@ lx_drop_lock() {
 
   if sudo -v 2>/dev/null; then
 
-    sudo rm -f "$lockfile";
+    sudo rm -f "$lockfile" || true;
 
   else
 
-    rm -f "$lockfile";
+    rm -f "$lockfile" || true;
 
   fi;
+
+  return 0;
 
 }
 
