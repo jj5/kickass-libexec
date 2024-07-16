@@ -6,6 +6,8 @@ lx_once_per_year() {
 
   shift;
 
+  lx_once_validate_env;
+
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
   local process_dir="$LX_STATE_DIR/$process_name";
@@ -25,6 +27,8 @@ lx_once_per_month() {
 
   shift;
 
+  lx_once_validate_env;
+
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
   local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y" )";
@@ -43,6 +47,8 @@ lx_once_per_week() {
   local process_name="$1";
 
   shift;
+
+  lx_once_validate_env;
 
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
@@ -65,6 +71,8 @@ lx_once_per_day() {
 
   shift;
 
+  lx_once_validate_env;
+
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
   local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y/%m" )";
@@ -84,6 +92,8 @@ lx_once_per_hour() {
 
   shift;
 
+  lx_once_validate_env;
+
   local current_time="$( date )";
   local timestamp="$( date -d "$current_time" +"%Y-%m-%d-%H%M%S" )";
   local process_dir="$LX_STATE_DIR/$process_name/$( date -d "$current_time" +"%Y/%m/%d" )";
@@ -94,6 +104,14 @@ lx_once_per_hour() {
   local process_fail="$process_dir/hour-$( date -d "$current_time" +"%H" )-fail-$timestamp.log"
 
   lx_run lx_once "$process_name" "$process_file" "$process_fail" "$@";
+
+}
+
+lx_once_validate_env() {
+
+  [ -d "$LX_STATE_DIR" ] || lx_fail "$LX_EXIT_FILE_MISSING" "state directory '$LX_STATE_DIR' missing.";
+
+  return 0;
 
 }
 
