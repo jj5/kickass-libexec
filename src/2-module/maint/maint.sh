@@ -160,7 +160,7 @@ lx_schedule_reboot() {
 
     charisma)
 
-      lx_note "will not automatically reboot this host.";
+      lx_note "will not automatically reboot this host '$HOSTNAME'.";
 
       return 0;;
 
