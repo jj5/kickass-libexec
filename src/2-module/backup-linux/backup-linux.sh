@@ -43,51 +43,51 @@ lx_backup_linux_host_internal() {
 
   lx_run pushd "/$zfs_file_system";
 
-  local dir_list=( bin boot etc home lib opt root sbin srv usr var );
+    local dir_list=( bin boot etc home lib opt root sbin srv usr var );
 
-  for dir in "${dir_list[@]}"; do
+    for dir in "${dir_list[@]}"; do
 
-    lx_report backing up $host:/$dir
+      lx_report backing up $host:/$dir
 
-    if lx_attempt 5 5 lx_ssh "$host" test -d "/$dir"; then
+      if lx_attempt 5 5 lx_ssh "$host" test -d "/$dir"; then
 
-      if lx_ssh "$host" test -L "/$dir"; then
+        if lx_ssh "$host" test -L "/$dir"; then
 
-        lx_report "skipping $host:/$dir, it's a symlink.";
+          lx_report "skipping $host:/$dir, it's a symlink.";
 
-      elif lx_attempt 5 5 lx_ssh "$host" test ! -L "/$dir"; then
+        elif lx_attempt 5 5 lx_ssh "$host" test ! -L "/$dir"; then
 
-        # 2019-05-17 jj5 - this is not a symlink, we can continue...
+          # 2019-05-17 jj5 - this is not a symlink, we can continue...
 
-        lx_run mkdir -p "$dir";
+          lx_run mkdir -p "$dir";
 
-        if lx_attempt 5 5 $backup_function "$host" "$dir"; then
+          if lx_attempt 5 5 $backup_function "$host" "$dir"; then
 
-          # 2019-09-12 jj5 - success!
+            # 2019-09-12 jj5 - success!
 
-          true;
+            true;
+
+          else
+
+            lx_fail "'$host:/$dir' backup failed.";
+
+          fi;
 
         else
 
-          lx_fail "'$host:/$dir' backup failed.";
+          lx_fail "'$host:/$dir' backup failed, is host offline?";
 
         fi;
 
       else
 
-        lx_fail "'$host:/$dir' backup failed, is host offline?";
+        lx_fail "'$host:/$dir' is not a directory or host offline.";
 
       fi;
 
-    else
+    done;
 
-      lx_fail "'$host:/$dir' is not a directory or host offline.";
-
-    fi;
-
-  done;
-
-  lx_run zfs snapshot "$zfs_file_system@$timecode";
+    lx_run zfs snapshot "$zfs_file_system@$timecode";
 
   lx_run popd;
 

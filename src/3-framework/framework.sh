@@ -441,17 +441,17 @@ lx_del_tmp() {
   # temporary and removed below...
   lx_need pushd /tmp;
 
-  for tmp in "${LX_STD_TEMPLIST[@]}"; do
+    for tmp in "${LX_STD_TEMPLIST[@]}"; do
 
-    lx_report "removing temp item '$tmp'..."
+      lx_report "removing temp item '$tmp'..."
 
-    [ -d "$tmp" ] && lx_wrap rm -rf "$tmp" && lx_report "removed directory.";
+      [ -d "$tmp" ] && lx_wrap rm -rf "$tmp" && lx_report "removed directory.";
 
-    [ -f "$tmp" ] && lx_wrap rm -f "$tmp" && lx_report "removed file.";
+      [ -f "$tmp" ] && lx_wrap rm -f "$tmp" && lx_report "removed file.";
 
-  done
+    done
 
-  LX_STD_TEMPLIST=();
+    LX_STD_TEMPLIST=();
 
   lx_need popd;
 

@@ -13,15 +13,15 @@ lx_maint() {
 
       lx_quiet pushd "$path";
 
-      [ -e .svn ] && {
+        [ -e .svn ] && {
 
-        local user="$( ls -l -d . | awk '{ print $3 }' )";
+          local user="$( ls -l -d . | awk '{ print $3 }' )";
 
-        lx_note "running svn up in '$PWD' for user '$user'...";
+          lx_note "running svn up in '$PWD' for user '$user'...";
 
-        lx_run_as "$user" svn up;
+          lx_run_as "$user" svn up;
 
-      }
+        }
 
       lx_quiet popd;
 
