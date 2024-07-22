@@ -14,8 +14,13 @@ LX_DIR_SRC="$LX_DIR/src";
 [ -d "$LX_DIR_SRC" ] || { echo "error: LX_DIR_SRC not found: $LX_DIR_SRC"; exit 40; }
 
 source "$LX_DIR_INC/lib.sh";
+echo done source "$LX_DIR_INC/lib.sh";
+
 source "$LX_DIR_SRC/4-command/cli-function.sh";
+echo done source "$LX_DIR_SRC/4-command/cli-function.sh";
+
 source "$LX_DIR_SRC/4-command/cli-alias.sh";
+echo done source "$LX_DIR_SRC/4-command/cli-alias.sh";
 
 # You may uncomment the following lines if you want `ls' to be colorized:
 export LS_OPTIONS='--color=auto'
@@ -40,3 +45,5 @@ PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:
 
 # 2023-12-29 jj5 - set the Konsole window title
 echo -ne "\033]2;$USER@$HOSTNAME\007" >&2
+
+
