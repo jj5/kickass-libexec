@@ -14,13 +14,10 @@ LX_DIR_SRC="$LX_DIR/src";
 [ -d "$LX_DIR_SRC" ] || { echo "error: LX_DIR_SRC not found: $LX_DIR_SRC"; exit 40; }
 
 source "$LX_DIR_INC/lib.sh";
-echo done source "$LX_DIR_INC/lib.sh";
 
 source "$LX_DIR_SRC/4-command/cli-function.sh";
-echo done source "$LX_DIR_SRC/4-command/cli-function.sh";
 
 source "$LX_DIR_SRC/4-command/cli-alias.sh";
-echo done source "$LX_DIR_SRC/4-command/cli-alias.sh";
 
 # You may uncomment the following lines if you want `ls' to be colorized:
 export LS_OPTIONS='--color=auto'

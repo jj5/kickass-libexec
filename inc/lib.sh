@@ -14,22 +14,14 @@ LX_DIR_SRC="$LX_DIR/src";
 [ -d "$LX_DIR_SRC" ] || { echo "error: LX_DIR_SRC not found: $LX_DIR_SRC"; exit 40; }
 
 source "$LX_DIR_SRC/1-toolkit/const/color.sh";
-echo done source "$LX_DIR_SRC/1-toolkit/const/color.sh";
 
 source "$LX_DIR_SRC/1-toolkit/const/error.sh";
-echo done source "$LX_DIR_SRC/1-toolkit/const/error.sh";
 
 source "$LX_DIR_SRC/1-toolkit/env.sh";
-echo done source "$LX_DIR_SRC/1-toolkit/env.sh";
 
 source "$LX_DIR_SRC/1-toolkit/toolkit.sh";
-echo done source "$LX_DIR_SRC/1-toolkit/toolkit.sh";
 
 lx_load_modules;
-echo done lx_load_modules;
 
 source "$LX_DIR_ETC/env.sh";
-echo done source "$LX_DIR_ETC/env.sh";
-
-echo "${BASH_SOURCE[@]}";
 
