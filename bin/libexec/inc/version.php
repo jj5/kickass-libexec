@@ -98,6 +98,9 @@ function get_version_info(
 
     }
   }
+
+  return true;
+
 }
 
 function write_version_files(
