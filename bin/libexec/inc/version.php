@@ -56,7 +56,10 @@ function get_version_info(
   //
   $svn_revision = 'Revision: ' . hexdec( $commit_hash_short );
 
-  $svn_author = 'Author: ' . get_current_user();
+  // 2024-08-07 jj5 - NEW: just say 'jj5'... this is only for back-compat anyway, it doesn't mean anything.
+  $svn_author = 'Author: jj5';
+  // 2024-08-07 jj5 - OLD:
+  //$svn_author = 'Author: ' . get_current_user();
 
   if ( ! file_exists( APP_VERSION_FILE_PHP ) ) { return false; }
 
