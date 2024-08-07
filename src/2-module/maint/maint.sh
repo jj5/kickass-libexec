@@ -74,7 +74,7 @@ lx_maint() {
 
   lx_run sudo DEBIAN_FRONTEND=noninteractive apt update;
 
-  command -v needrestart || {
+  test -x /usr/sbin/needrestart || {
 
     lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y install needrestart;
 
@@ -82,7 +82,7 @@ lx_maint() {
 
   lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y upgrade;
 
-  lx_run sudo needrestart -r a;
+  lx_run sudo /usr/sbin/needrestart -r a;
 
   lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y autoremove;
 
@@ -142,7 +142,7 @@ lx_maint() {
 
     lx_run lx_schedule_reboot;
 
-  elif needrestart -b -r l | grep 'NEEDRESTART-SVC:'; then
+  elif /usr/sbin/needrestart -b -r l | grep 'NEEDRESTART-SVC:'; then
 
     lx_run lx_schedule_reboot;
 
@@ -237,9 +237,9 @@ lx_maint_run() {
 
   lx_run lx_ssh "$host" /srv/libexec/bin/lx-maint.sh;
 
-  lx_run lx_ssh "$host" sudo needrestart -r l;
+  lx_run lx_ssh "$host" sudo /usr/sbin/needrestart -r l;
 
-  lx_run lx_ssh "$host" sudo needrestart -b -r l;
+  lx_run lx_ssh "$host" sudo /usr/sbin/needrestart -b -r l;
 
   lx_note "maint has completed on '$host', will sleep for two minutes.";
 
