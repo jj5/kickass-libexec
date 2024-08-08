@@ -84,7 +84,9 @@ lx_maint() {
 
   lx_run sudo /usr/sbin/needrestart -r a;
 
-  lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y autoremove;
+  # 2024-08-09 jj5 - NOTE: this is disabled for now, it has been removing things which get added straight back, so need to
+  # investigate...
+  #lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y autoremove;
 
   if command -v snap; then
 
