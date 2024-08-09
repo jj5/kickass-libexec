@@ -120,6 +120,8 @@ while true; do
     -e "$localhost" \
     ;
 
-  echo "sed crashed, will restart." >&2
+  echo "sed crashed, will restart in 5 seconds." >&2
+
+  sleep 5;
 
 done;
