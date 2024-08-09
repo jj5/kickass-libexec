@@ -96,25 +96,30 @@ home="s_${ESC}\\[1;37m(139\\.218\\.130\\.78)${ESC}_${DGRAY}\\1${ESC}_";
 #
 localhost="s_${ESC}\\[1;37m(127\\.0\\.0\\.1)${ESC}_${DGRAY}\\1${ESC}_";
 
-sed -r -u \
-  -e "$access_log" \
-  -e "$other_log" \
-  -e "$error_log" \
-  -e "$http_443" \
-  -e "$http_80" \
-  -e "$http_8080" \
-  -e "$http_2xx_443" \
-  -e "$http_2xx" \
-  -e "$http_3xx_443" \
-  -e "$http_3xx" \
-  -e "$http_xxx_443" \
-  -e "$http_xxx" \
-  -e "$error_svn" \
-  -e "$error_4" \
-  -e "$error_3" \
-  -e "$error_default" \
-  -e "$user_agent" \
-  -e "$home" \
-  -e "$localhost" \
-  ;
+while true; do
 
+  sed -r -u \
+    -e "$access_log" \
+    -e "$other_log" \
+    -e "$error_log" \
+    -e "$http_443" \
+    -e "$http_80" \
+    -e "$http_8080" \
+    -e "$http_2xx_443" \
+    -e "$http_2xx" \
+    -e "$http_3xx_443" \
+    -e "$http_3xx" \
+    -e "$http_xxx_443" \
+    -e "$http_xxx" \
+    -e "$error_svn" \
+    -e "$error_4" \
+    -e "$error_3" \
+    -e "$error_default" \
+    -e "$user_agent" \
+    -e "$home" \
+    -e "$localhost" \
+    ;
+
+  echo "sed crashed, will restart." >&2
+
+done;
