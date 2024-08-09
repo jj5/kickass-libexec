@@ -49,10 +49,10 @@ DGREY="$DGRAY";
 #error_log="s_^(==>) ([^:]+): ([^:]+): ([^:]+): ([^ ]+) \(([^\)]?)\): (error.log) (<==)\$_${RED}\\1 \\2: \\3:${END} ${YELLOW}\\4${END}: ${LGREEN}\\5${END} (${CYAN}\\6${END}): ${RED}\\7 \\8${END}_";
 
 #header_log="s_^==> ([^:]+): ([^:]+): ([^:]+): ([^<]+)<==\$_==> ${WHITE}\\1: \\2: \\3: \\4${END}<==_";
-access_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (access.log[^<]*)<==\$_==> ${WHITE}\\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${WHITE}\\4${END}<==_";
-other_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (other\\_vhosts\\_access.log[^<]*)<==\$_==> ${WHITE}\\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${WHITE}\\4${END}<==_";
-error_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (error.log[^<]*)<==\$_==> ${WHITE}\\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${RED}\\4${END}<==_";
-journal_log="s_^==> ([^:]+): ([^:]+): ([^:]+): ([^<]+)<==\$_==> ${RED}\\1: \\2: \\3: \\4${END}<==_";
+access_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (access.log[^<]*)<==\$_${WHITE}==> \\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${WHITE}\\4${END}${WHITE}<==${END}_";
+other_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (other\\_vhosts\\_access.log[^<]*)<==\$_${WHITE}==> \\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${WHITE}\\4${END}${WHITE}<==${END}_";
+error_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (error.log[^<]*)<==\$_${WHITE}==> \\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${RED}\\4${END}${WHITE}<==${END}_";
+journal_log="s_^==> ([^:]+): ([^:]+): ([^:]+): ([^<]+)<==\$_${WHITE}==>${END} ${RED}\\1: \\2: \\3: \\4${END}${WHITE}<==${END}_";
 
 #
 # 2018-03-05 jj5 - these format the request URI as a fully qualified URL...
