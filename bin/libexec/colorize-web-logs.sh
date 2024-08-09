@@ -44,9 +44,15 @@ DGREY="$DGRAY";
 # 2018-03-03 jj5 - these format the 'tail' headers, like: ==> whatever <==
 #
 
-access_log="s_^(==>) ([^:]+): ([^:]+): ([^:]+): ([^ ]+) \(([^\)]?)\): (access.log) (<==)\$_${WHITE}\\1 \\2: \\3:${END} ${YELLOW}\\4${END}: ${LGREEN}\\5${END} (${CYAN}\\6${END}): ${WHITE}\\7 \\8${END}_";
-other_log="s_^(==>) ([^:]+): ([^:]+): ([^:]+): ([^ ]+) \(([^\)]?)\): (other\_vhosts\_access.log) (<==)\$_${RED}\\1 \\2: \\3:${END} ${YELLOW}\\4${END}: ${LGREEN}\\5${END} (${CYAN}\\6${END}): ${RED}\\7 \\8${END}_";
-error_log="s_^(==>) ([^:]+): ([^:]+): ([^:]+): ([^ ]+) \(([^\)]?)\): (error.log) (<==)\$_${RED}\\1 \\2: \\3:${END} ${YELLOW}\\4${END}: ${LGREEN}\\5${END} (${CYAN}\\6${END}): ${RED}\\7 \\8${END}_";
+#access_log="s_^(==>) ([^:]+): ([^:]+): ([^:]+): ([^ ]+) \(([^\)]?)\): (access.log) (<==)\$_${WHITE}\\1 \\2: \\3:${END} ${YELLOW}\\4${END}: ${LGREEN}\\5${END} (${CYAN}\\6${END}): ${WHITE}\\7 \\8${END}_";
+#other_log="s_^(==>) ([^:]+): ([^:]+): ([^:]+): ([^ ]+) \(([^\)]?)\): (other\_vhosts\_access.log) (<==)\$_${RED}\\1 \\2: \\3:${END} ${YELLOW}\\4${END}: ${LGREEN}\\5${END} (${CYAN}\\6${END}): ${RED}\\7 \\8${END}_";
+#error_log="s_^(==>) ([^:]+): ([^:]+): ([^:]+): ([^ ]+) \(([^\)]?)\): (error.log) (<==)\$_${RED}\\1 \\2: \\3:${END} ${YELLOW}\\4${END}: ${LGREEN}\\5${END} (${CYAN}\\6${END}): ${RED}\\7 \\8${END}_";
+
+#header_log="s_^==> ([^:]+): ([^:]+): ([^:]+): ([^<]+)<==\$_==> ${WHITE}\\1: \\2: \\3: \\4${END}<==_";
+access_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (access.log[^<]*)<==\$_==> ${WHITE}\\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${WHITE}\\4${END}<==_";
+other_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (other\\_vhosts\\_access.log[^<]*)<==\$_==> ${WHITE}\\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${WHITE}\\4${END}<==_";
+error_log="s_^==> ([^:]+): ([^:]+): ([^:]+): (error.log[^<]*)<==\$_==> ${WHITE}\\1${END}: ${WHITE}\\2${END}: ${WHITE}\\3${END}: ${RED}\\4${END}<==_";
+journal_log="s_^==> ([^:]+): ([^:]+): ([^:]+): ([^<]+)<==\$_==> ${RED}\\1: \\2: \\3: \\4${END}<==_";
 
 #
 # 2018-03-05 jj5 - these format the request URI as a fully qualified URL...
@@ -100,9 +106,7 @@ localhost="s_${ESC}\\[1;37m(127\\.0\\.0\\.1)${ESC}_${DGRAY}\\1${ESC}_";
 while true; do
 
   sed -r -u \
-    -e "$access_log" \
-    -e "$other_log" \
-    -e "$error_log" \
+    -e "$access_log" -e "$other_log"  -e "$error_log" -e "$journal_log" \
     -e "$http_443" \
     -e "$http_80" \
     -e "$http_8080" \
