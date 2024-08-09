@@ -14,7 +14,7 @@ lx_spy_syslog() {
 
   cd /tmp/lx-spy;
 
-  lx_syslog_monitor "$sysid" "$system" "$host" &
+  lx_spy_run lx_syslog_monitor "$sysid" "$system" "$host" &
 
 }
 

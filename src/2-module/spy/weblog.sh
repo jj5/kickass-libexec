@@ -14,9 +14,9 @@ lx_spy_weblog() {
 
   cd /tmp/lx-spy;
 
-  lx_weblog_monitor "$sysid" "$system" "$host" access.log &
-  lx_weblog_monitor "$sysid" "$system" "$host" error.log &
-  lx_weblog_monitor "$sysid" "$system" "$host" other_vhosts_access.log &
+  lx_spy_run lx_weblog_monitor "$sysid" "$system" "$host" access.log &
+  lx_spy_run lx_weblog_monitor "$sysid" "$system" "$host" error.log &
+  lx_spy_run lx_weblog_monitor "$sysid" "$system" "$host" other_vhosts_access.log &
 
 }
 
@@ -40,6 +40,16 @@ lx_weblog_monitor() {
   touch "$out_file";
 
   while true; do
+
+    lx_ssh "root@$host" test -f "$log_file" 2>/dev/null || {
+
+      lx_warn "couldn't find log '$log_file' on host '$host'; sleeping for 5 minutes.";
+
+      sleep 300;
+
+      continue;
+
+    };
 
     lx_ssh "root@$host" test -d / 2>/dev/null || {
 
