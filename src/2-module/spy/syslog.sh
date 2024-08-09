@@ -10,9 +10,9 @@ lx_spy_syslog() {
   lx_ensure 2 'system' "$system";
   lx_ensure 3 'host' "$host";
 
-  mkdir -p /tmp/lx-spy;
+  mkdir -p "LX_SPY_DIR";
 
-  cd /tmp/lx-spy;
+  cd "LX_SPY_DIR";
 
   lx_spy_run lx_syslog_monitor "$sysid" "$system" "$host" &
 

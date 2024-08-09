@@ -1,13 +1,15 @@
 #!/bin/bash
 
+LX_SPY_DIR=/dev/shm/lx-spy;
+
 source "$( dirname "${BASH_SOURCE[0]}" )/syslog.sh";
 source "$( dirname "${BASH_SOURCE[0]}" )/weblog.sh";
 
 lx_watch_logs() {
 
-  mkdir -p /tmp/lx-spy;
+  mkdir -p "LX_SPY_DIR";
 
-  cd /tmp/lx-spy;
+  cd "LX_SPY_DIR";
 
   sleep 5;
 
@@ -43,9 +45,9 @@ lx_spy_run() {
   lx_ensure 4 'host' "$host";
   # 2024-08-10 jj5 - $log is optional...
 
-  mkdir -p /tmp/lx-spy;
+  mkdir -p "LX_SPY_DIR";
 
-  cd /tmp/lx-spy;
+  cd "LX_SPY_DIR";
 
   $monitor "$sysid" "$system" "$host" "$log" &
 
