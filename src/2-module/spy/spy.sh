@@ -7,9 +7,9 @@ source "$( dirname "${BASH_SOURCE[0]}" )/weblog.sh";
 
 lx_watch_logs() {
 
-  mkdir -p "LX_SPY_DIR";
+  mkdir -p "$LX_SPY_DIR";
 
-  cd "LX_SPY_DIR";
+  cd "$LX_SPY_DIR";
 
   sleep 5;
 
@@ -45,9 +45,9 @@ lx_spy_run() {
   lx_ensure 4 'host' "$host";
   # 2024-08-10 jj5 - $log is optional...
 
-  mkdir -p "LX_SPY_DIR";
+  mkdir -p "$LX_SPY_DIR";
 
-  cd "LX_SPY_DIR";
+  cd "$LX_SPY_DIR";
 
   $monitor "$sysid" "$system" "$host" "$log" &
 
