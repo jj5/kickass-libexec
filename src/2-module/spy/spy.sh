@@ -57,11 +57,11 @@ lx_spy_run() {
 
   while true; do
 
+    sleep 10;
+
     if ps -p $pid > /dev/null; then
 
       # 2024-08-10 jj5 - NOTE: subprocess is still running, that's good.
-
-      sleep 5;
 
       continue;
 
@@ -72,8 +72,6 @@ lx_spy_run() {
     $monitor "$sysid" "$system" "$host" "$log" &
 
     pid=$!;
-
-    sleep 5;
 
   done;
 
