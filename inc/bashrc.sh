@@ -37,8 +37,21 @@ alias ll='ls $LS_OPTIONS -alh'
 HISTSIZE=-1
 HISTFILESIZE=-1
 
+for file in git-completion.bash git-prompt.sh; do
+
+  test -f /home/jj5/bin/git/$file && source /home/jj5/bin/git/$file;
+
+done
+
+
 # 2024-02-03 jj5 - colour prompt that I like...
-PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:\j error:$? time:$SECONDS]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$PWD\[\033[00m\]\n\[\033[1;31m\]\$\[\033[00m\] '
+export PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:\j error:$? time:$SECONDS]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$PWD\[\033[00m\]\n\[\033[1;31m\]\$\[\033[00m\] '
+
+test -f /home/jj5/bin/git/git-prompt.sh && {
+
+  export PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:\j error:$? time:$SECONDS]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$PWD\[\033[00m\]\n\[\033[1;31m\]$(__git_ps1 "(%s) ")\$\[\033[00m\] ';
+
+}
 
 # 2023-12-29 jj5 - set the Konsole window title
 echo -ne "\033]2;$USER@$HOSTNAME\007" >&2
