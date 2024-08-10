@@ -61,6 +61,8 @@ lx_spy_run() {
 
       # 2024-08-10 jj5 - NOTE: subprocess is still running, that's good.
 
+      sleep 5;
+
       continue;
 
     fi
