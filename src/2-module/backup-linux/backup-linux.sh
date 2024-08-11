@@ -115,7 +115,7 @@ lx_backup_vic() {
 
     local dir="/host/vic";
 
-    if [ $( ls "$dir" | wc -l ) > 0 ]; then
+    if [ $( ls "$dir" | wc -l ) != 0 ]; then
 
       if lx_attempt 5 5 lx_run lx_rsync_backup "$dir/" "system/" linux; then
 
