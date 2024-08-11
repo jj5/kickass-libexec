@@ -52,7 +52,7 @@ lx_maint() {
 
             lx_note "running git pull in '$PWD' for user '$user'...";
 
-            lx_run_as "$user" git pull;
+            lx_run_as "$user" git pull --recurse-submodules;
 
           elif [ -e .svn ]; then
 
