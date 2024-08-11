@@ -132,11 +132,30 @@ lx_vcs_sync_git() {
 
   done;
 
+  # 2024-08-07 jj5 - get the remote URL...
+  #
+  local remote_url=$( git remote get-url origin );
+
+  # 2024-08-07 jj5 - extract the bit we're interested in using awk. This isn't always the remote hostname, but it
+  # will be for git.overlead.com which is our only use case at the moment.
+  #
+  local remote_host=$( echo "$remote_url" | awk -F'[@:/]' '{print $(NF-1)}' );
+
+  local branch="main";
+
+  # 2024-08-07 jj5 - HACK! I am sure there is a better way to do this...
+  #
+  case "$remote_host" in
+    git.overleaf.com)
+      branch="master";;
+  esac
+
   lx_run_as "$user" git add .
 
   if lx_try_as "$user" git commit -m "Work, work..."; then
 
-    lx_run_as "$user" git push;
+    lx_run_as "$user" git push origin $branch;
+    #lx_run_as "$user" git push;
 
     lx_run_as "$user" "$LX_SCRIPT_DIR/lx-version-increment-patch.sh";
 
@@ -144,7 +163,8 @@ lx_vcs_sync_git() {
 
     lx_run_as "$user" git commit -m "Work, work...";
 
-    lx_run_as "$user" git push;
+    lx_run_as "$user" git push origin $branch;
+    #lx_run_as "$user" git push;
 
   fi;
 
