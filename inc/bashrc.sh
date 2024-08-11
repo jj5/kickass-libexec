@@ -49,11 +49,9 @@ export PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\
 
 test -f /home/jj5/bin/git/git-prompt.sh && {
 
-  export PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:\j error:$? time:$SECONDS]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$PWD\[\033[00m\]\n\[\033[1;31m\]$(__git_ps1 "(%s) ")\$\[\033[00m\] ';
+  export PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:\j error:$? time:$SECONDS]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$PWD\[\033[00m\]\n\[\033[1;37m\]$(__git_ps1 "(%s) ")\[\033[00m\]\[\033[1;31m\]\$\[\033[00m\] ';
 
 }
 
 # 2023-12-29 jj5 - set the Konsole window title
 echo -ne "\033]2;$USER@$HOSTNAME\007" >&2
-
-
