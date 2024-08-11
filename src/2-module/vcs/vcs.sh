@@ -75,6 +75,10 @@ lx_vcs_sync_git() {
   #lx_run git submodule update --remote;
   #lx_note "running git pull in '$PWD'...";
 
+  # 2024-08-11 jj5 - NOTE: Cargo Cult much? I have no idea what I am doing...
+  #
+  lx_run_as "$user" git submodule update --init --recursive
+  #lx_run_as "$user" git submodule update --recursive
   lx_run_as "$user" git pull --recurse-submodules;
 
   for submodule in $( sudo -u "$user" git submodule | awk '{ print $2 }' ); do
