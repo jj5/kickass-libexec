@@ -121,7 +121,10 @@ lx_vcs_sync_git() {
 
         lx_run_as "$user" git add .
 
-        lx_try_as "$user" git commit -m "Work, work..." || true;
+        # 2024-08-11 jj5 - NEW: this should not fail...
+        lx_run_as "$user" git commit -m "Work, work...";
+        # 2024-08-11 jj5 - OLD:
+        #lx_try_as "$user" git commit -m "Work, work..." || true;
 
         lx_run_as "$user" git push origin $branch;
 
@@ -147,7 +150,10 @@ lx_vcs_sync_git() {
 
     lx_run_as "$user" git add .
 
-    lx_try_as "$user" git commit -m "Work, work..." || true;
+    # 2024-08-11 jj5 - NEW: this should not fail...
+    lx_run_as "$user" git commit -m "Work, work...";
+    # 2024-08-11 jj5 - OLD:
+    #lx_try_as "$user" git commit -m "Work, work..." || true;
 
     lx_run_as "$user" git push;
 
