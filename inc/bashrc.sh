@@ -28,27 +28,36 @@ alias ll='ls $LS_OPTIONS -alh'
 
 # Some more alias to avoid making mistakes:
 [ "$USER" == "root" ] && {
-  alias rm='rm -i'
-  alias cp='cp -i'
-  alias mv='mv -i'
+  alias rm='rm -i';
+  alias cp='cp -i';
+  alias mv='mv -i';
 }
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=-1
-HISTFILESIZE=-1
+export HISTSIZE=-1
+export HISTFILESIZE=-1
 
+# 2024-08-11 jj5 - add git completion and prompt tooling if it's available...
+#
 for file in git-completion.bash git-prompt.sh; do
 
-  test -f /home/jj5/bin/git/$file && source /home/jj5/bin/git/$file;
+  path="$LX_DIR_INC/git/$file";
+
+  test -f "$path" && source "$path";
 
 done
 
+unset file;
+unset path;
 
 # 2024-02-03 jj5 - colour prompt that I like...
+#
 export PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:\j error:$? time:$SECONDS]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$PWD\[\033[00m\]\n\[\033[1;31m\]\$\[\033[00m\] '
 
-test -f /home/jj5/bin/git/git-prompt.sh && {
+test -f "$LX_DIR_INC/git/git-prompt.sh" && {
 
+  # 2024-08-11 jj5 - as we have the git prompt tooling add it to the prompt...
+  #
   export PS1='-------------------\n${debian_chroot:+($debian_chroot)}\d \t [bash:\V jobs:\j error:$? time:$SECONDS]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$PWD\[\033[00m\]\n\[\033[1;37m\]$(__git_ps1 "(%s) ")\[\033[00m\]\[\033[1;31m\]\$\[\033[00m\] ';
 
 }
