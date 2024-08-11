@@ -72,7 +72,7 @@ lx_vcs_sync_git() {
 
   lx_note "processing git dir '$PWD' as user '$user'...";
 
-  lx_try_as "$user" git submodule update --init --recursive
+  lx_try_as "$user" git submodule update --init --recursive || true;
 
   lx_run_as "$user" git pull --recurse-submodules;
 
