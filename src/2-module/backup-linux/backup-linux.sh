@@ -93,6 +93,52 @@ lx_backup_linux_host_internal() {
 
 }
 
+lx_backup_vic() {
+
+  local host="vic";
+
+  local zfs_file_system="$LX_ZFS_DATA_HOST/$host";
+
+  local timecode=$( date +%Y-%m-%d-%H%M%S );
+
+  lx_run zfs create -p "$zfs_file_system";
+
+  lx_debug "zfs_file_system: $zfs_file_system";
+
+  lx_run "$LX_DIR_BIN/libexec/hanok.php" --type zfs "$zfs_file_system";
+
+  [ -e "/$zfs_file_system/.zfs/snapshot/$timecode" ] && { fail "snapshot directory already exists."; }
+
+  lx_run pushd "/$zfs_file_system";
+
+    mkdir -p "system";
+
+    local dir="/host/vic";
+
+    if [ $( ls "$dir" | wc -l ) > 0 ]; then
+
+      if lx_attempt 5 5 lx_run lx_rsync_backup "$dir/" "system/" linux; then
+
+        # 2019-09-12 jj5 - success!
+
+        lx_run zfs snapshot "$zfs_file_system@$timecode";
+
+      else
+
+        lx_fail "'$dir' backup failed.";
+
+      fi;
+
+    else
+
+      lx_note "VIC doesn't seem to be online, skipping...";
+
+    fi;
+
+  lx_run popd;
+
+}
+
 lx_backup_linux_dir() {
 
   local host="$1";
