@@ -31,7 +31,6 @@ lx_maint() {
 
   local check_list=(
     /srv
-    /var/www
   );
 
   for path in "${check_list[@]}"; do
@@ -65,6 +64,26 @@ lx_maint() {
           fi;
 
         lx_quiet popd;
+
+      done;
+
+    lx_quiet popd;
+
+  done;
+
+  local web_list=(
+    /var/www
+  );
+
+  for path in "${web_list[@]}"; do
+
+    [ -d "$path" ] || continue;
+
+    lx_quiet pushd "$path";
+
+      for dir in *; do
+
+        [ -d "$dir/.git" ] && lx_update_web "$PWD/$dir";
 
       done;
 
