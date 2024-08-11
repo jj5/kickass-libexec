@@ -123,7 +123,7 @@ lx_vcs_sync_git() {
 
     lx_run_as "$user" git add .
 
-    lx_run_as "$user" git commit -m "Work, work...";
+    lx_try_as "$user" git commit -m "Work, work..." || true;
 
     lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
     #lx_run_as "$user" git push;
