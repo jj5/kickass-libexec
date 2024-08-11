@@ -154,7 +154,7 @@ lx_vcs_sync_git() {
 
   if lx_try_as "$user" git commit -m "Work, work..."; then
 
-    lx_run_as "$user" git push origin $branch;
+    lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
     #lx_run_as "$user" git push;
 
     lx_run_as "$user" "$LX_SCRIPT_DIR/lx-version-increment-patch.sh";
@@ -163,7 +163,7 @@ lx_vcs_sync_git() {
 
     lx_run_as "$user" git commit -m "Work, work...";
 
-    lx_run_as "$user" git push origin $branch;
+    lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
     #lx_run_as "$user" git push;
 
   fi;
