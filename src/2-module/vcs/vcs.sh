@@ -175,7 +175,8 @@ lx_vcs_sync_git() {
 
   lx_note "running git push in '$PWD'...";
 
-  lx_run_as "$user" git push;
+  lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
+  #lx_run_as "$user" git push;
 
   lx_run_as "$user" git status;
 
