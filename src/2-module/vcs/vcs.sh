@@ -74,7 +74,7 @@ lx_vcs_sync_git() {
 
   lx_try_as "$user" git submodule update --init --recursive || true;
 
-  lx_run_as "$user" git pull --recurse-submodules || true;
+  lx_try_as "$user" git pull --recurse-submodules || true;
 
   for submodule in $( sudo -u "$user" git submodule | awk '{ print $2 }' ); do
 
