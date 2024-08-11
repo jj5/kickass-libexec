@@ -150,7 +150,7 @@ lx_vcs_sync_git() {
 
   lx_note "running git pull in '$PWD'...";
 
-  lx_run_as "$user" git pull --recurse-submodules;
+  lx_try_as "$user" git pull --recurse-submodules || true;
 
   lx_note "running git push in '$PWD'...";
 
