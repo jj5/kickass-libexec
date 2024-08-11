@@ -72,13 +72,8 @@ lx_vcs_sync_git() {
 
   lx_note "processing git dir '$PWD' as user '$user'...";
 
-  #lx_run git submodule update --remote;
-  #lx_note "running git pull in '$PWD'...";
-
-  # 2024-08-11 jj5 - NOTE: Cargo Cult much? I have no idea what I am doing...
-  #
   lx_run_as "$user" git submodule update --init --recursive
-  #lx_run_as "$user" git submodule update --recursive
+
   lx_run_as "$user" git pull --recurse-submodules;
 
   for submodule in $( sudo -u "$user" git submodule | awk '{ print $2 }' ); do
@@ -99,17 +94,11 @@ lx_vcs_sync_git() {
       local branch="main";
 
       # 2024-08-07 jj5 - HACK! I am sure there is a better way to do this...
-
+      #
       case "$remote_host" in
         git.overleaf.com)
           branch="master";;
       esac
-
-      # 2024-07-07 jj5 - NEW: maybe this will work...
-      #lx_run git pull remote main;
-      # 2024-07-07 jj5 - OLD: we might have a problem if there are recursive submodules? there aren't at the moment.
-      #lx_run git pull --recurse-submodules
-      #lx_run git submodule update --remote;
 
       lx_run_as "$user" git add .;
 
@@ -121,10 +110,7 @@ lx_vcs_sync_git() {
 
         lx_run_as "$user" git add .
 
-        # 2024-08-11 jj5 - NEW: this should not fail...
         lx_run_as "$user" git commit -m "Work, work...";
-        # 2024-08-11 jj5 - OLD:
-        #lx_try_as "$user" git commit -m "Work, work..." || true;
 
         lx_run_as "$user" git push origin $branch;
 
@@ -150,10 +136,7 @@ lx_vcs_sync_git() {
 
     lx_run_as "$user" git add .
 
-    # 2024-08-11 jj5 - NEW: this should not fail...
     lx_run_as "$user" git commit -m "Work, work...";
-    # 2024-08-11 jj5 - OLD:
-    #lx_try_as "$user" git commit -m "Work, work..." || true;
 
     lx_run_as "$user" git push;
 
