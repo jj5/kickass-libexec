@@ -20,11 +20,11 @@ source "$LX_DIR_SRC/4-command/cli-function.sh";
 source "$LX_DIR_SRC/4-command/cli-alias.sh";
 
 # You may uncomment the following lines if you want `ls' to be colorized:
-export LS_OPTIONS='--color=auto'
-eval "$(dircolors)"
-alias ls='ls $LS_OPTIONS'
-alias ll='ls $LS_OPTIONS -alh'
-#alias l='ls $LS_OPTIONS -lA'
+export LS_OPTIONS='--color=auto';
+eval "$(dircolors)";
+alias ls='ls $LS_OPTIONS';
+alias ll='ls $LS_OPTIONS -alh';
+#alias l='ls $LS_OPTIONS -lA';
 
 # Some more alias to avoid making mistakes:
 [ "$USER" == "root" ] && {
