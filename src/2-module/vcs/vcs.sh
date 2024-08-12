@@ -112,12 +112,15 @@ lx_vcs_sync_git() {
       branch="master";;
   esac
 
+  lx_note "running git pull in '$PWD'...";
+
+  lx_try_as "$user" git pull origin $branch || true;
+
   lx_run_as "$user" git add .
 
   if lx_try_as "$user" git commit -m "Work, work..."; then
 
     lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
-    #lx_run_as "$user" git push;
 
     lx_run_as "$user" "$LX_SCRIPT_DIR/lx-version-increment-patch.sh";
 
@@ -126,19 +129,16 @@ lx_vcs_sync_git() {
     lx_try_as "$user" git commit -m "Work, work..." || true;
 
     lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
-    #lx_run_as "$user" git push;
 
   fi;
 
   lx_note "running git pull in '$PWD'...";
 
   lx_try_as "$user" git pull origin $branch || true;
-  #lx_try_as "$user" git pull --recurse-submodules || true;
 
   lx_note "running git push in '$PWD'...";
 
   lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
-  #lx_run_as "$user" git push;
 
   lx_run_as "$user" git status;
 
