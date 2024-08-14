@@ -128,7 +128,9 @@ lx_vcs_sync_git() {
 
     lx_try_as "$user" git commit -m "Work, work..." || true;
 
-    lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
+    lx_try_as "$user" git push || \
+      lx_try_as "$user" git push origin $branch || \
+      lx_run_as "$user" git push origin HEAD:$branch;
 
   fi;
 
@@ -138,7 +140,9 @@ lx_vcs_sync_git() {
 
   lx_note "running git push in '$PWD'...";
 
-  lx_try_as "$user" git push origin $branch || lx_try_as "$user" git push origin HEAD:$branch;
+  lx_try_as "$user" git push || \
+    lx_try_as "$user" git push origin $branch || \
+    lx_run_as "$user" git push origin HEAD:$branch;
 
   lx_run_as "$user" git status;
 
