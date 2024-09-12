@@ -114,7 +114,7 @@ lx_vcs_sync_git() {
 
   lx_note "running git pull in '$PWD'...";
 
-  lx_run_as "$user" git pull origin $branch || true;
+  lx_try_as "$user" git pull origin $branch || true;
 
   lx_run_as "$user" git add .
 
