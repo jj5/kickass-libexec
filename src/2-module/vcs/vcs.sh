@@ -147,3 +147,80 @@ lx_vcs_sync_git() {
   lx_run_as "$user" git status;
 
 }
+
+lx_vcs_update() {
+
+  local dirs=( "$@" );
+
+  if [ "${#dirs[@]}" == '0' ]; then
+
+    dirs+=( '.' );
+
+  fi;
+
+  for dir in "${dirs[@]}"; do
+
+    if [ ! -d "$dir" ]; then
+
+      continue;
+
+    fi;
+
+    pushd "$dir" >/dev/null;
+
+      lx_note "updating '$dir'...";
+
+      #echo -e "$LX_WHITE$PWD:$LX_END";
+
+      # 2024-05-22 jj5 - NOTE: the .git file can be a file (for submodules) or a directory
+      #
+      if [ -e .git ]; then
+
+        lx_vcs_update_git;
+
+      elif [ -d .svn ]; then
+
+        lx_vcs_update_svn;
+
+      else
+
+        lx_warn "no version control found.";
+
+      fi;
+
+      echo;
+
+    popd >/dev/null;
+
+  done;
+
+}
+
+lx_vcs_update_svn() {
+
+  local user="$( ls -l -d . | awk '{ print $3 }' )";
+
+  lx_note "processing svn dir '$PWD' as user '$user'...";
+
+  lx_run_as "$user" svn status
+
+  lx_run_as "$user" svn up
+
+}
+
+lx_vcs_update_git() {
+
+  # 2024-07-06 jj5 - SEE: https://chatgpt.com/share/0c74a5e2-8d64-48e3-a050-75550d04fa74
+  # 2024-07-07 jj5 - SEE: https://chatgpt.com/share/272b8a2d-48ca-4528-a182-2f82c470fd87
+
+  local user="$( ls -l -d . | awk '{ print $3 }' )";
+
+  lx_note "processing git dir '$PWD' as user '$user'...";
+
+  #lx_try_as "$user" git submodule update --init --recursive || true;
+
+  lx_try_as "$user" git pull --recurse-submodules;
+
+  lx_run_as "$user" git status;
+
+}

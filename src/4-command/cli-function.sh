@@ -52,6 +52,16 @@ gui() {
 
 }
 
+gup() {
+
+  time "$LX_DIR_BIN/lx-gup.sh" "$@";
+
+  local error="$?"
+
+  return "$error";
+
+}
+
 maint() {
 
   if [ -d /srv/libexec ]; then
