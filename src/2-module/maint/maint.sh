@@ -252,6 +252,12 @@ lx_maint_run() {
 
   local user="$( lx_ssh "$host" ls -l -d /srv/libexec | awk '{ print $3 }' )";
 
+  if [ -z "$user" ]; then
+
+    lx_fail "could not find /srv/libexec owner on host '$host'."
+
+  fi;
+
   lx_run lx_ssh "$host" "cd /srv/libexec && sudo -u "$user" git pull";
 
   lx_run lx_ssh "$host" /srv/libexec/bin/lx-maint.sh;
