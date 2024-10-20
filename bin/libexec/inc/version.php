@@ -211,8 +211,8 @@ function write_version_file_bash(
   $file[] = '';
   $file[] = "# " . APP_VERSION_FILE_COMMENT;
   $file[] = '';
-  $file[] = "export {$const_prefix}_NAME='{$name}';";
-  $file[] = "export {$const_prefix}_CODE='{$code}';";
+  $file[] = "export {$const_prefix}_NAME={$name};";
+  $file[] = "export {$const_prefix}_CODE={$code};";
   $file[] = '';
   $file[] = "export {$const_prefix}_VERSION='{$version}';";
   $file[] = "export {$const_prefix}_VERSION_MAJOR='{$version_major}';";
