@@ -61,6 +61,7 @@ lx_gen_mudball_gitignore() {
 
   cat <<EOF > .gitignore
 config.php
+debug.php
 .vscode
 EOF
 
