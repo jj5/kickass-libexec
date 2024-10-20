@@ -1894,11 +1894,34 @@ lx_ensure_workspace() {
 }
 
 lx_remove_emergency_workspace() {
-  
+
   [ -d "${LX_WORKSPACE:-}" ] && {
 
     rm -rf "$LX_WORKSPACE";
 
   };
+
+}
+
+lx_check_and_install_package() {
+
+  local pkg="${1:-}";
+
+  lx_ensure 1 'pkg' "$pkg";
+
+  # 2024-10-21 jj5 - NOTE: this grep command has significant whitespace in it, so be careful if you change it.
+  #
+  if dpkg -l | grep "^ii  $pkg " >/dev/null; then
+
+    lx_note "package '$pkg' is already installed.";
+
+    return 0;
+
+  fi
+
+  lx_note "package '$pkg' is not installed, will install it now...";
+
+  lx_run sudo apt-get update
+  lx_run sudo apt-get install -y "$pkg"
 
 }
