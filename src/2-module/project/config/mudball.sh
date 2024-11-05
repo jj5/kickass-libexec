@@ -41,8 +41,6 @@ lx_gen_mudball() {
   lx_run mkdir -p 'web/res';
   lx_run mkdir -p 'web/root';
 
-  lx_run lx_gen_mudball_inc_version_php;
-  lx_run lx_gen_mudball_inc_version_sh;
   lx_run lx_gen_mudball_inc_framework_php;
 
   lx_run lx_gen_mudball_run_cli_php;
