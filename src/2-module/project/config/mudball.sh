@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LX_MUDBALL_VERSION="${LX_MUDBALL_VERSION:-0.6}";
+export LX_MUDBALL_VERSION="${LX_MUDBALL_VERSION:-0.6}";
 
 lx_gen_mudball() {
 
@@ -10,18 +10,10 @@ lx_gen_mudball() {
   lx_ensure 1 'project' "$project";
   lx_ensure 2 'version' "$version";
 
-  export LX_VCS_USER="${LX_VCS_USER:-$USER}";
-  export LX_VCS_EMAIL="${LX_VCS_EMAIL:-jj5@jj5.net}";
-  export LX_VCS_NAME="${LX_VCS_NAME:-John Elliot V}";
-
-  export LX_DATE_USER="$( date +"%Y-%m-%d" ) $LX_VCS_USER";
-
   local uppercase_project="${project^^}";
 
-  IFS='.' read -ra version_parts <<< "$version";
-
-  local version_major="${version_parts[0]}";
-  local version_minor="${version_parts[1]}";
+  local version_major="${version%.*}";
+  local version_minor="${version##*.}";
 
   export LX_PROJECT_CODE="${uppercase_project//-/_}";
 

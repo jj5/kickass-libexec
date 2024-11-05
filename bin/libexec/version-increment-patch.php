@@ -26,6 +26,10 @@ function main( $argv ) {
 
   if ( ! $result ) { return 0; }
 
+  echo "const_prefix: $const_prefix\n";
+
+  exit;
+
   $version_patch += 2;
 
   write_version_files(

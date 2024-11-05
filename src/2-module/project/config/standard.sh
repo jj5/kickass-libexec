@@ -8,6 +8,13 @@ lx_gen_standard() {
   lx_ensure 1 'project' "$project";
   lx_ensure 2 'version' "$version";
 
+  local uppercase_project="${project^^}";
+
+  local version_major="${version%.*}";
+  local version_minor="${version##*.}";
+
+  export LX_PROJECT_CODE="${uppercase_project//-/_}";
+
   lx_run lx_gen_standard_gitignore;
 
   lx_run mkdir -p 'inc';
@@ -19,11 +26,19 @@ lx_gen_standard() {
 
 lx_gen_standard_gitignore() {
 
+  [ -f '.gitignore' ] && { return; }
+
   cat <<EOF > .gitignore
-vendor
-config.php
-debug.php
-.vscode
+/.vscode/
+/.phpdoc/
+/build/
+/etc/local/
+/log/
+/nbproject/
+/var/
+/vendor/
+/config.php
+/debug.php
 EOF
 
 }

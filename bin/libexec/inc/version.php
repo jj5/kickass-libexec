@@ -19,7 +19,7 @@ function get_version_info(
   &$code
 ) {
 
-  $const_prefix_regex = '/\'([^_]+)_VERSION_MAJOR\', ([0-9]+)/';
+  $const_prefix_regex = '/\'(.+)_VERSION_MAJOR\', ([0-9]+)/';
 
   $name_regex = '/_NAME\', ([\'"][^\'"]+[\'"])/';
   $code_regex = '/_CODE\', ([\'"][^\'"]+[\'"])/';

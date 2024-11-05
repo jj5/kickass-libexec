@@ -1,5 +1,10 @@
 #!/bin/bash
 
+export LX_VCS_USER="${LX_VCS_USER:-$USER}";
+export LX_VCS_EMAIL="${LX_VCS_EMAIL:-jj5@jj5.net}";
+export LX_VCS_NAME="${LX_VCS_NAME:-John Elliot V}";
+export LX_DATE_USER="${LX_DATE_USER:-$( date +"%Y-%m-%d" ) $LX_VCS_USER}";
+
 source "$( dirname "${BASH_SOURCE[0]}" )/config/standard.sh";
 source "$( dirname "${BASH_SOURCE[0]}" )/config/mudball.sh";
 
