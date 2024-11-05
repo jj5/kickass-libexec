@@ -355,7 +355,7 @@ if ( defined( 'APP_TRACE_LOAD' ) && APP_TRACE_LOAD ) {
 // $LX_DATE_USER - load dependencies...
 //
 
-require_once __DIR__ . '/3-lookup.php';
+require_once __DIR__ . '/3-flags.php';
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
