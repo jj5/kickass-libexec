@@ -5,13 +5,13 @@
 export LX_NAME='Kickass Libexec';
 export LX_CODE='lx';
 
-export LX_VERSION='0.1.361';
+export LX_VERSION='0.1.363';
 export LX_VERSION_MAJOR='0';
 export LX_VERSION_MINOR='1';
-export LX_VERSION_PATCH='361';
+export LX_VERSION_PATCH='363';
 
-export LX_SVN_DATE='Date: 2024-10-21 07:54:29 +1100 (Mon, 21 Oct 2024)';
-export LX_SVN_REVISION='Revision: 88249175';
+export LX_SVN_DATE='Date: 2024-11-05 20:42:14 +1100 (Tue, 05 Nov 2024)';
+export LX_SVN_REVISION='Revision: 239595905';
 export LX_SVN_AUTHOR='Author: jj5';
 
-export LX_GIT_DATE='2024-10-21 07:54:29 +1100 (Mon, 21 Oct 2024)';
+export LX_GIT_DATE='2024-11-05 20:42:14 +1100 (Tue, 05 Nov 2024)';
