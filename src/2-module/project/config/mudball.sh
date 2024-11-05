@@ -80,7 +80,7 @@ lx_gen_mudball_run_cli_php() {
   cat <<EOF > $file
 <?php
 
-require_once __DIR__ . '/../ext/mudball/run/run-cli.php';
+require_once __DIR__ . '/../ext/mudball-$LX_MUDBALL_VERSION/run/run-cli.php';
 
 EOF
 
@@ -95,7 +95,7 @@ lx_gen_mudball_run_web_php() {
   cat <<EOF > $file
 <?php
 
-require_once __DIR__ . '/../ext/mudball/run/run-web.php';
+require_once __DIR__ . '/../ext/mudball-$LX_MUDBALL_VERSION/run/run-web.php';
 
 EOF
 
