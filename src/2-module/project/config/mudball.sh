@@ -1,10 +1,14 @@
 #!/bin/bash
 
+LX_MUDBALL_VERSION="${LX_MUDBALL_VERSION:-0.6}";
+
 lx_gen_mudball() {
 
   local project="${1:-}";
+  local version="${2:-}";
 
   lx_ensure 1 'project' "$project";
+  lx_ensure 2 'version' "$version";
 
   export LX_VCS_USER="${LX_VCS_USER:-$USER}";
   export LX_VCS_EMAIL="${LX_VCS_EMAIL:-jj5@jj5.net}";
@@ -14,15 +18,22 @@ lx_gen_mudball() {
 
   local uppercase_project="${project^^}";
 
+  IFS='.' read -ra version_parts <<< "$version";
+
+  local version_major="${version_parts[0]}";
+  local version_minor="${version_parts[1]}";
+
   export LX_PROJECT_CODE="${uppercase_project//-/_}";
 
-  [ -d 'ext/mudball' ] || {
+  [ -d "ext/mudball-$LX_MUDBALL_VERSION" ] || {
 
     # 2024-10-21 jj5 - NOTE: we have this check just to be sure that we're in the correct directory...
 
     lx_fail 'mudball framework not found...';
 
   };
+
+  lx_run lx_gen_standard "$project" "$version";
 
   lx_run mkdir -p 'bin';
   lx_run mkdir -p 'dat';
@@ -37,8 +48,6 @@ lx_gen_mudball() {
   lx_run mkdir -p 'src/gen';
   lx_run mkdir -p 'web/res';
   lx_run mkdir -p 'web/root';
-
-  lx_run lx_gen_mudball_gitignore;
 
   lx_run lx_gen_mudball_inc_version_php;
   lx_run lx_gen_mudball_inc_version_sh;
@@ -57,16 +66,6 @@ lx_gen_mudball() {
 
 }
 
-lx_gen_mudball_gitignore() {
-
-  cat <<EOF > .gitignore
-config.php
-debug.php
-.vscode
-EOF
-
-}
-
 lx_gen_mudball_inc_version_php() {
 
   local file='inc/version.php';
@@ -82,8 +81,8 @@ lx_gen_mudball_inc_version_php() {
 define( '${LX_PROJECT_CODE}_NAME', '${project}' );
 define( '${LX_PROJECT_CODE}_CODE', '${project}' );
 
-define( '${LX_PROJECT_CODE}_VERSION_MAJOR', 0 );
-define( '${LX_PROJECT_CODE}_VERSION_MINOR', 1 );
+define( '${LX_PROJECT_CODE}_VERSION_MAJOR', $version_major );
+define( '${LX_PROJECT_CODE}_VERSION_MINOR', $version_minor );
 define( '${LX_PROJECT_CODE}_VERSION_PATCH', 1 );
 
 define(
@@ -183,7 +182,7 @@ if ( defined( 'APP_TRACE_LOAD' ) && APP_TRACE_LOAD ) {
 // $LX_DATE_USER - load libraries...
 //
 
-require_once __DIR__ . '/../../../ext/mudball/inc/module.php';
+require_once __DIR__ . '/../../../ext/mudball-$LX_MUDBALL_VERSION/inc/module.php';
 
 EOF
 
