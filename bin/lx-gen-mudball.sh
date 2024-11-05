@@ -8,15 +8,16 @@ main() {
 
   local project_dir="$( basename "$( pwd )" )";
 
-  IFS='-' read -ra project_parts <<< "$project_dir";
+  local project="${project_dir%-*}";
+  local version="${project_dir##*-}";
 
-  local project="${project_parts[0]}";
-  local version="${project_parts[1]}";
+  local version_major="${version%.*}";
+  local version_minor="${version##*.}";
 
-  IFS='.' read -ra version_parts <<< "$version";
-
-  local version_major="${version_parts[0]}";
-  local version_minor="${version_parts[1]}";
+  echo "project: $project";
+  echo "version: $version";
+  echo "version_major: $version_major";
+  echo "version_minor: $version_minor";
 
   lx_gen_mudball "$project" "$version";
 

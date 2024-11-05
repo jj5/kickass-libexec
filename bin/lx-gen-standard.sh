@@ -11,7 +11,15 @@ main() {
   local project="${project_dir%-*}";
   local version="${project_dir##*-}";
 
-  echo lx_gen_standard "$project" "$version";
+  local version_major="${version%.*}";
+  local version_minor="${version##*.}";
+
+  echo "project: $project";
+  echo "version: $version";
+  echo "version_major: $version_major";
+  echo "version_minor: $version_minor";
+
+  lx_gen_standard "$project" "$version";
 
 }
 
