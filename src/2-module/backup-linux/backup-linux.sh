@@ -1,5 +1,7 @@
 #!/bin/bash
 
+LX_BACKUP_DIR_LIST=( bin boot etc home lib opt root sbin srv usr var );
+
 lx_backup_linux_host_if_online() {
 
   local host="$1";
@@ -43,9 +45,7 @@ lx_backup_linux_host_internal() {
 
   lx_run pushd "/$zfs_file_system";
 
-    local dir_list=( bin boot etc home lib opt root sbin srv usr var );
-
-    for dir in "${dir_list[@]}"; do
+    for dir in "${LX_BACKUP_DIR_LIST[@]}"; do
 
       lx_report backing up $host:/$dir
 
