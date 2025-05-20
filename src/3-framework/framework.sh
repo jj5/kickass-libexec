@@ -102,9 +102,19 @@ lx_bootstrap() {
   # 2017-05-17 jj5 - DONE: call main (in subshell) and log output...
   lx_main "${arg_list[@]}" 2>&1 | tee "$LX_SCRIPT_LOG";
 
-  # 2025-02-22 jj5 - HACK: this just fixes up the konsole window title...
-  #
-  echo -ne "\033]0;$USER@$HOSTNAME\007"
+  if [[ -z "$PS1" && -z "$DISPLAY" && -z "$SSH_TTY" ]]; then
+
+    # 2025-05-21 jj5 - possibly running under cron so don't output anything...
+    #
+    true
+
+  else
+
+    # 2025-02-22 jj5 - HACK: this just fixes up the konsole window title...
+    #
+    echo -ne "\033]0;$USER@$HOSTNAME\007"
+
+  fi
 
   # 2017-05-19 jj5 - DONE: read $PIPESTATUS for error level of call to main()
   # which gets invoked in a subshell due to the piping to tee.
