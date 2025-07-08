@@ -42,7 +42,7 @@ main() {
 
     lx_note "re-reading partition table for: $device";
 
-    lx_try hdparm -z "$device"
+    lx_try_run hdparm -z "$device"
 
   done;
 
