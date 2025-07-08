@@ -29,7 +29,10 @@ main() {
   lx_run smartctl --scan
 
   # 4. reload smartd
-  lx_run systemctl reload smartmontools
+  # 2025-07-08 jj5 - NEW: I think that restart is stronger than reload...
+  lx_run systemctl restart smartmontools
+  # 2025-07-08 jj5 - OLD:
+  #lx_run systemctl reload smartmontools
 
 }
 
