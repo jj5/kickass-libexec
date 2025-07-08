@@ -11,6 +11,8 @@ main() {
   lx_require user root;
 
   lx_require command hdparm;
+  lx_require command smartctl;
+  lx_require command systemctl;
 
   # 2025-07-08 jj5 - SEE: https://chatgpt.com/share/686c8a9f-304c-8006-8de0-51614168f8fe
 
@@ -28,11 +30,15 @@ main() {
 
   lx_note "rescanning ATA devices...";
 
+  # 2025-07-08 jj5 - NOTE: one of my USB drives is not a SCSI device, so it does not
+  # appear in /sys/class/scsi_host/host*, but it does appear in /sys/class/block/sd*.
+  # So we also need to rescan those devices.
+
   for device in /sys/class/block/sd?; do
 
     lx_note rescaning: "$device";
 
-    echo 1 | sudo tee "$device/device/rescan"
+    echo 1 | tee "$device/device/rescan"
 
   done;
 
@@ -42,6 +48,9 @@ main() {
 
     lx_note "re-reading partition table for: $device";
 
+    # 2025-07-08 jj5 - NOTE: this command seems to fail because the device is busy, but maybe it still reloads
+    # the partition table? I'm not sure. I don't think it will hurt to run it anyway.
+    #
     lx_try_run hdparm -z "$device"
 
   done;
