@@ -468,6 +468,10 @@ lx_require() {
 
       lx_in_list "$HOSTNAME" "$@" || lx_fail "must run on host: $*.";;
 
+    command)
+
+      command -v "$1" >/dev/null || lx_fail "command '$1' is not available.";;
+
     item)
 
       local item="$1"; shift;
