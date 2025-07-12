@@ -51,7 +51,7 @@ main() {
     # 2025-07-08 jj5 - NOTE: this command seems to fail because the device is busy, but maybe it still reloads
     # the partition table? I'm not sure. I don't think it will hurt to run it anyway.
     #
-    lx_try_run hdparm -z "$device"
+    hdparm -z "$device" || true;
 
   done;
 
