@@ -187,3 +187,72 @@ lx_zfs_push() {
   done
 
 }
+
+lx_zfs_mirror() {
+
+  # 2025-10-29 jj5 - this will rsync for zfs mirror
+
+  local src="$1";
+  local tgt="$2";
+  local host_type="${3:-linux}";
+
+  if [ -z "${src:-}" ]; then
+
+    lx_fail "source must be specified.";
+
+  fi;
+
+  if [ -z "${tgt:-}" ]; then
+
+    lx_fail "target must be specified.";
+
+  fi;
+
+  lx_report "mirroring (w/ rsync): $src to $tgt ($host_type)";
+
+  local args=()
+
+  case "$host_type" in
+    "mac")
+      # 2023-12-04 jj5 - no ACLs or xattrs for macOS...
+      true;;
+    "linux")
+      # 2023-12-04 jj5 - include ACLs and xattrs for linux...
+      args+=( --acls --xattrs );;
+    *)
+      lx_fail "unsupported host type '$host_type'.";;
+  esac
+
+  local progress='0';
+
+  if [ "$progress" != '0' ]; then
+
+    args+=( --progress );
+
+  fi
+
+  # 2023-12-04 jj5 - NOTE: we don't --exclude anything for an exact mirror
+
+  # 2017-05-20 jj5 - the full rsync options are specified over multiple lines
+  # to avoid bugs due to wrapping...
+  # 2017-05-20 jj5 - SEE: The Horror Story:
+  # https://www.progclub.org/blog/2017/05/19/rsync-unexpected-remote-arg/
+  args+=( --stats --human-readable );
+  args+=( --recursive --del --force --times );
+
+  # 2025-10-29 jj5 - NEW: --hard-links is expensive and we probably don't need...
+  args+=( --links --executability --numeric-ids );
+  # 2025-10-29 jj5 - OLD:
+  #args+=( --links --hard-links --executability --numeric-ids );
+
+  # 2025-10-29 jj5 - NEW: add max-alloc in case more RAM is needed than default (1G)
+  args+=( --max-alloc=8G );
+
+  args+=( --owner --group --perms --sparse );
+  args+=( --compress-level=0 );
+
+  # 2023-12-04 jj5 - NOTE: we don't include --devices or --specials
+
+  lx_run time rsync "${args[@]}" "$src" "$tgt"
+
+}
