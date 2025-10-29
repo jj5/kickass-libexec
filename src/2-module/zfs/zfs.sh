@@ -98,7 +98,7 @@ lx_zfs_pull() {
 
     fi
 
-    lx_run lx_rsync_mirror "$src_host:/$zfs_src/.zfs/snapshot/$snapshot/" "/$zfs_tgt/";
+    lx_run lx_zfs_mirror "$src_host:/$zfs_src/.zfs/snapshot/$snapshot/" "/$zfs_tgt/";
 
     lx_run zfs snapshot "$zfs_tgt@$snapshot";
 
@@ -168,7 +168,7 @@ lx_zfs_push() {
 
     if lx_ssh "$tgt_host" test ! -d "/$zfs_tgt/.zfs/snapshot/$snapshot"; then
 
-      lx_run lx_rsync_mirror "/$zfs_src/.zfs/snapshot/$snapshot/" "$tgt_host:/$zfs_tgt/";
+      lx_run lx_zfs_mirror "/$zfs_src/.zfs/snapshot/$snapshot/" "$tgt_host:/$zfs_tgt/";
 
       lx_run lx_ssh "$tgt_host" zfs snapshot "$zfs_tgt@$snapshot";
 
