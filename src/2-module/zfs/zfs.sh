@@ -208,7 +208,7 @@ lx_zfs_mirror() {
 
   fi;
 
-  lx_report "mirroring (w/ rsync): $src to $tgt ($host_type)";
+  lx_report "ZFS mirroring (w/ rsync): $src to $tgt ($host_type)";
 
   local args=()
 
