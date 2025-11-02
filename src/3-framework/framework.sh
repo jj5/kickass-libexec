@@ -102,7 +102,7 @@ lx_bootstrap() {
   # 2017-05-17 jj5 - DONE: call main (in subshell) and log output...
   lx_main "${arg_list[@]}" 2>&1 | tee "$LX_SCRIPT_LOG";
 
-  if [[ -z "$PS1" && -z "$DISPLAY" && -z "$SSH_TTY" ]]; then
+  if [[ -z "${PS1:-}" && -z "$DISPLAY" && -z "$SSH_TTY" ]]; then
 
     # 2025-05-21 jj5 - possibly running under cron so don't output anything...
     #
