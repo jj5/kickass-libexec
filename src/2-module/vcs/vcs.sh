@@ -112,6 +112,21 @@ lx_vcs_sync_git() {
       branch="master";;
   esac
 
+  lx_note "Remote URL is: $remote_url";
+
+  if [[ $remote_url == ssh:* ]]; then
+    lx_note "Remote via SSH, will push any changes.";
+  elif [[ $remote_url == git@* ]]; then
+    lx_note "Remote via SSH, will push any changes.";
+  elif [[ $remote_url == https:* ]]; then
+    lx_note "Remote via HTTPS, will update only no push.";
+    lx_vcs_update_git;
+    return 0;
+  else
+    lx_warn "Unknown URL type: $remote_url";
+    exit 1;
+  fi
+
   lx_note "running git pull in '$PWD'...";
 
   lx_try_as "$user" git pull origin $branch || true;
