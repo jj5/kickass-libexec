@@ -1,5 +1,7 @@
 #!/bin/bash
 
+LX_LOCK_FILE='/var/lock/lx-archive.lock';
+
 main() {
 
   lx_default status 0;
