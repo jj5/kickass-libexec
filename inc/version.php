@@ -6,16 +6,16 @@
 define( 'LX_NAME', 'Kickass Libexec' );
 define( 'LX_CODE', 'lx' );
 
-//define( 'LX_VERSION', '0.1.413' );
+//define( 'LX_VERSION', '0.1.415' );
 define( 'LX_VERSION_MAJOR', 0 );
 define( 'LX_VERSION_MINOR', 1 );
-define( 'LX_VERSION_PATCH', 413 );
+define( 'LX_VERSION_PATCH', 415 );
 
 define(
   'LX_SVN_DATE',
-  '$Date: 2026-03-26 17:38:52 +1100 (Thu, 26 Mar 2026) $'
+  '$Date: 2026-04-04 12:15:43 +0000 (Sat, 04 Apr 2026) $'
 );
-define( 'LX_SVN_REVISION', '$Revision: 239972921 $' );
+define( 'LX_SVN_REVISION', '$Revision: 122416514 $' );
 define( 'LX_SVN_AUTHOR', '$Author: jj5 $' );
 
-define( 'LX_GIT_DATE', '2026-03-26 17:38:52 +1100 (Thu, 26 Mar 2026)' );
+define( 'LX_GIT_DATE', '2026-04-04 12:15:43 +0000 (Sat, 04 Apr 2026)' );
