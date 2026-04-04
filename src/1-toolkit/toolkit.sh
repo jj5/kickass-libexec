@@ -832,8 +832,6 @@ lx_try_run() {
 
   local message="error running: $*";
 
-  lx_warn "$message";
-
   lx_notify "$message";
 
 }
@@ -1165,6 +1163,14 @@ lx_delay() {
   };
 
   return 0;
+
+}
+
+lx_notify_run() {
+
+  lx_notify "running: $*"
+
+  lx_try_run "$@";
 
 }
 
