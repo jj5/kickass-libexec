@@ -47,8 +47,6 @@ function get_version_info(
 
   $repo_type = app_detect_repo_type( getcwd(), $repo_path );
 
-  var_dump( $repo_type ); exit;
-
   switch ( $repo_type ) {
     case 'git':
       //$commit_hash = trim( `git rev-parse HEAD` );
