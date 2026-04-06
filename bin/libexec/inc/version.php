@@ -47,6 +47,7 @@ function get_version_info(
 
   switch ( app_detect_repo_type( getcwd() ) ) {
     case 'git':
+      //$commit_hash = trim( `git rev-parse HEAD` );
       $commit_hash_short = trim( `git rev-parse --short HEAD` );
       break;
     case 'svn':
@@ -56,9 +57,6 @@ function get_version_info(
       $commit_hash_short = 'unknown';
       break;
   }
-
-  //$commit_hash = trim( `git rev-parse HEAD` );
-  $commit_hash_short = trim( `git rev-parse --short HEAD` );
 
   $date = date( 'Y-m-d H:i:s O (D, d M Y)' );
 
