@@ -45,6 +45,18 @@ function get_version_info(
   $name = "''";
   $code = "''";
 
+  switch ( app_detect_repo_type( getcwd() ) ) {
+    case 'git':
+      $commit_hash_short = trim( `git rev-parse --short HEAD` );
+      break;
+    case 'svn':
+      $commit_hash_short = app_get_svn_revision( getcwd() );
+      break;
+    default:
+      $commit_hash_short = 'unknown';
+      break;
+  }
+
   //$commit_hash = trim( `git rev-parse HEAD` );
   $commit_hash_short = trim( `git rev-parse --short HEAD` );
 
@@ -237,6 +249,58 @@ function write_version_file( string $path, array $lines ) {
 
   file_put_contents( $path, $text );
 
+}
+
+function app_detect_repo_type( string $path, &$repo_path = null ): string {
+  $repo_path = $path;
+  // Resolve to absolute path
+  $path = realpath($path);
+  if ($path === false) {
+      return 'none';
+  }
+
+  // If it's a file, start from its directory
+  if (is_file($path)) {
+      $path = dirname($path);
+  }
+
+  while ($path !== DIRECTORY_SEPARATOR) {
+      // Check for Git (.git can be dir OR file in worktrees/submodules)
+      if (file_exists($path . DIRECTORY_SEPARATOR . '.git')) {
+          $repo_path = $path;
+          return 'git';
+      }
+
+      // Check for SVN
+      if (is_dir($path . DIRECTORY_SEPARATOR . '.svn')) {
+          $repo_path = $path;
+          return 'svn';
+      }
+
+      // Move up one level
+      $parent = dirname($path);
+      if ($parent === $path) {
+          break; // reached filesystem root
+      }
+      $path = $parent;
+  }
+
+  return 'none';
+}
+
+function app_get_svn_revision( string $path ): ?string {
+  $repo_type = app_detect_repo_type($path, $repo_path);
+  if ($repo_type === 'svn') {
+      // Try to read the SVN revision from the .svn/entries file (SVN 1.7+)
+      $entries_path = realpath($repo_path) . DIRECTORY_SEPARATOR . '.svn' . DIRECTORY_SEPARATOR . 'entries';
+      if (file_exists($entries_path)) {
+          $entries_content = file_get_contents($entries_path);
+          if (preg_match('/<entry\s+revision="(\d+)"/', $entries_content, $matches)) {
+              return $matches[1];
+          }
+      }
+  }
+  return null;
 }
 
 main( $argv );
