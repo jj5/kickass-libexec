@@ -45,7 +45,11 @@ function get_version_info(
   $name = "''";
   $code = "''";
 
-  switch ( app_detect_repo_type( getcwd(), $repo_path ) ) {
+  $repo_type = app_detect_repo_type( getcwd(), $repo_path );
+
+  var_dump( $repo_type ); exit;
+
+  switch ( $repo_type ) {
     case 'git':
       //$commit_hash = trim( `git rev-parse HEAD` );
       $commit_hash_short = trim( `git rev-parse --short HEAD` );
