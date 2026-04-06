@@ -45,13 +45,13 @@ function get_version_info(
   $name = "''";
   $code = "''";
 
-  switch ( app_detect_repo_type( getcwd() ) ) {
+  switch ( app_detect_repo_type( getcwd(), $repo_path ) ) {
     case 'git':
       //$commit_hash = trim( `git rev-parse HEAD` );
       $commit_hash_short = trim( `git rev-parse --short HEAD` );
       break;
     case 'svn':
-      $commit_hash_short = app_get_svn_revision( getcwd() );
+      $commit_hash_short = app_get_svn_revision( $repo_path );
       break;
     default:
       $commit_hash_short = 'unknown';
