@@ -1233,6 +1233,10 @@ lx_notify() {
 
     echo "$report" | "$mailer" -s "$subject" "$to";
 
+    # 2026-04-10 jj5 - just give the mail system some time to get the mail through the system before we send another one
+    #
+    sleep 3;
+
   else
 
     lx_fail "invalid mailer '$mailer'.";
@@ -1570,6 +1574,9 @@ lx_sendlog() {
     echo "$body" | "$mailer" -s "$subject" "$to";
 
     local mail_err="$?";
+
+    # 2026-04-10 jj5 - give the message a chance to get through the system before we send any more
+    sleep 3;
 
     [ "$mail_err" = "0" ] || {
 
