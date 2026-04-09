@@ -5,13 +5,13 @@
 export LX_NAME='lx-0.1';
 export LX_CODE='lx';
 
-export LX_VERSION='0.1.433';
+export LX_VERSION='0.1.435';
 export LX_VERSION_MAJOR='0';
 export LX_VERSION_MINOR='1';
-export LX_VERSION_PATCH='433';
+export LX_VERSION_PATCH='435';
 
-export LX_SVN_DATE='Date: 2026-04-06 19:12:58 +1000 (Mon, 06 Apr 2026)';
-export LX_SVN_REVISION='Revision: 24936674';
+export LX_SVN_DATE='Date: 2026-04-09 19:13:51 +0000 (Thu, 09 Apr 2026)';
+export LX_SVN_REVISION='Revision: 116956308';
 export LX_SVN_AUTHOR='Author: jj5';
 
-export LX_GIT_DATE='2026-04-06 19:12:58 +1000 (Mon, 06 Apr 2026)';
+export LX_GIT_DATE='2026-04-09 19:13:51 +0000 (Thu, 09 Apr 2026)';
