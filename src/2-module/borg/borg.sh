@@ -95,8 +95,10 @@ lx_borg_backup_zstd() {
   #args+=( --compression zstd,22,threads=auto );
   #args+=( --compression auto,lzma,6 );
 
-  # 2026-01-28 jj5 - NEW: removed threads=auto because my version of borg does not support
-  args+=( --compression zstd,6 );
+  # 2026-05-04 jj5 - NEW: use stronger compression...
+  args+=( --compression zstd,18 );
+  # 2026-01-28 jj5 - OLD: removed threads=auto because my version of borg does not support
+  #args+=( --compression zstd,6 );
   # 2026-01-28 jj5 - OLD: my version of borg doesn't suppport this:
   #args+=( --compression zstd,6,threads=auto );
 
