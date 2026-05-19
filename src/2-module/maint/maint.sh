@@ -161,7 +161,7 @@ lx_maint() {
 
     lx_run lx_schedule_reboot;
 
-  elif /usr/sbin/needrestart -b -r l | grep 'NEEDRESTART-SVC:'; then
+  elif /usr/sbin/needrestart -b -r l 2>&1 | grep 'NEEDRESTART-SVC:'; then
 
     lx_run lx_schedule_reboot;
 
