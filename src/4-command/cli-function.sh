@@ -82,7 +82,7 @@ maint() {
 
   fi;
 
-  "$LX_DIR_BIN/lx-maint.sh" "$@";
+  sudo "$LX_DIR_BIN/lx-maint.sh" "$@";
 
 }
 
