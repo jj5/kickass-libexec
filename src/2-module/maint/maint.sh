@@ -250,6 +250,13 @@ lx_maint_run() {
 
   local host="$1";
 
+  # 2026-07-17 jj5 - this gives any system that is rebooting from previous maint a chance to boot. this is particularly
+  # important when that system is the LAN DNS server.
+  #
+  lx_note "maint is preparing to run on '$host', will sleep for a minute.";
+
+  sleep 60;
+
   local user="$( lx_ssh "$host" ls -l -d /srv/libexec | awk '{ print $3 }' )";
 
   if [ -z "$user" ]; then
