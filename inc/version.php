@@ -5,16 +5,16 @@
 define( 'LX_NAME', 'lx-0.1' );
 define( 'LX_CODE', 'lx' );
 
-//define( 'LX_VERSION', '0.1.469' );
+//define( 'LX_VERSION', '0.1.471' );
 define( 'LX_VERSION_MAJOR', 0 );
 define( 'LX_VERSION_MINOR', 1 );
-define( 'LX_VERSION_PATCH', 469 );
+define( 'LX_VERSION_PATCH', 471 );
 
 define(
   'LX_SVN_DATE',
-  '$Date: 2026-07-17 14:58:23 +0000 (Fri, 17 Jul 2026) $'
+  '$Date: 2026-07-18 05:30:10 +1000 (Sat, 18 Jul 2026) $'
 );
-define( 'LX_SVN_REVISION', '$Revision: 160677911 $' );
+define( 'LX_SVN_REVISION', '$Revision: 75031927 $' );
 define( 'LX_SVN_AUTHOR', '$Author: jj5 $' );
 
-define( 'LX_GIT_DATE', '2026-07-17 14:58:23 +0000 (Fri, 17 Jul 2026)' );
+define( 'LX_GIT_DATE', '2026-07-18 05:30:10 +1000 (Sat, 18 Jul 2026)' );
