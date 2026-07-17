@@ -93,19 +93,19 @@ lx_maint() {
 
   done;
 
-  lx_run DEBIAN_FRONTEND=noninteractive apt update;
+  lx_maint_noninteractive apt update;
 
   test -x /usr/sbin/needrestart || {
 
-    lx_run DEBIAN_FRONTEND=noninteractive apt -y install needrestart;
+    lx_maint_noninteractive apt -y install needrestart;
 
   }
 
-  lx_run DEBIAN_FRONTEND=noninteractive apt -y upgrade;
+  lx_maint_noninteractive apt -y upgrade;
 
   lx_run /usr/sbin/needrestart -r a;
 
-  lx_run DEBIAN_FRONTEND=noninteractive apt -y autoremove;
+  lx_maint_noninteractive apt -y autoremove;
 
   if command -v snap; then
 
@@ -236,7 +236,7 @@ lx_schedule_reboot() {
 
     lx_note "installing required 'at' command.";
     
-    lx_run DEBIAN_FRONTEND=noninteractive apt -y install at;
+    lx_maint_noninteractive apt -y install at;
 
   };
 
@@ -335,5 +335,13 @@ lx_maint_run() {
   # instead of at the end.
   #lx_note "maint has completed on '$host', will sleep for a minute.";
   #sleep 60;
+
+}
+
+lx_maint_noninteractive() {
+
+  # 2026-07-17 jj5 - we route this through sudo because it can interpret the environment variable specification...
+
+  lx_run sudo DEBIAN_FRONTEND=noninteractive "$@";
 
 }
