@@ -257,6 +257,17 @@ lx_maint_run() {
 
   sleep 60;
 
+  # 2026-07-17 jj5 - HACK! the computer 'truth' gets backed up after 'understanding' (at the moment, anyway), so we give
+  # it some extra time because 'understanding' is the DNS server and we need that to resolve names...
+  #
+  if [ "$user" -eq 'truth' ]; then
+
+    lx_note "maint is preparing to run on '$host', will sleep for an extra minute.";
+
+    sleep 60;
+
+  fi
+
   local user="$( lx_ssh "$host" ls -l -d /srv/libexec | awk '{ print $3 }' )";
 
   if [ -z "$user" ]; then
