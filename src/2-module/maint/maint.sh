@@ -2,6 +2,8 @@
 
 lx_maint() {
 
+  lx_require user root;
+
   local svn_wc_list=(
     /home/jj5/bin
     /home/jj5/bin/private
@@ -91,23 +93,23 @@ lx_maint() {
 
   done;
 
-  lx_run sudo DEBIAN_FRONTEND=noninteractive apt update;
+  lx_run DEBIAN_FRONTEND=noninteractive apt update;
 
   test -x /usr/sbin/needrestart || {
 
-    lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y install needrestart;
+    lx_run DEBIAN_FRONTEND=noninteractive apt -y install needrestart;
 
   }
 
-  lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y upgrade;
+  lx_run DEBIAN_FRONTEND=noninteractive apt -y upgrade;
 
-  lx_run sudo /usr/sbin/needrestart -r a;
+  lx_run /usr/sbin/needrestart -r a;
 
-  lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y autoremove;
+  lx_run DEBIAN_FRONTEND=noninteractive apt -y autoremove;
 
   if command -v snap; then
 
-    lx_run sudo snap refresh;
+    lx_run snap refresh;
 
   fi
 
@@ -115,7 +117,7 @@ lx_maint() {
 
     lx_note "zabbix agent still running, will disable."
 
-    lx_run sudo systemctl disable zabbix-agent.service;
+    lx_run systemctl disable zabbix-agent.service;
 
   fi
 
@@ -136,13 +138,13 @@ lx_maint() {
 
         lx_note "disabling salt-minion...";
 
-        lx_run sudo systemctl disable salt-minion
+        lx_run systemctl disable salt-minion
 
       fi
 
     else
 
-      lx_run sudo salt-call --state-output=mixed --state-verbose=False state.highstate;
+      lx_run salt-call --state-output=mixed --state-verbose=False state.highstate;
 
     fi
 
@@ -234,13 +236,13 @@ lx_schedule_reboot() {
 
     lx_note "installing required 'at' command.";
     
-    lx_run sudo DEBIAN_FRONTEND=noninteractive apt -y install at;
+    lx_run DEBIAN_FRONTEND=noninteractive apt -y install at;
 
   };
 
   lx_note "will reboot in 10 seconds...";
 
-  echo "sleep 10; sudo shutdown -r now" | at now;
+  echo "sleep 10; shutdown -r now" | at now;
 
 }
 
