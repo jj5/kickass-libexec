@@ -165,12 +165,10 @@ lx_maint() {
 
   fi
 
-  local status=$(
-    sudo needrestart -b 2>/dev/null
-  )
+  local status=$( needrestart -b );
 
-  local kernel_status=$(awk '/^NEEDRESTART-KSTA:/ {print $2; exit}' <<<"$status")
-  local service_status=$(awk '/^NEEDRESTART-SVC:/ {print $2; exit}' <<<"$status")
+  local kernel_status=$( awk '/^NEEDRESTART-KSTA:/ {print $2; exit}' <<<"$status" );
+  local service_status=$( awk '/^NEEDRESTART-SVC:/ {print $2; exit}' <<<"$status" );
 
   local reboot_required=false
   local restart_services=false
@@ -182,10 +180,10 @@ lx_maint() {
     1)
       ;;
     0|"")
-      lx_warn "Warning: unable to determine kernel status."
+      lx_warn "warning: unable to determine kernel status."
       ;;
     *)
-      lx_warn "Warning: unknown kernel status: $kernel_status"
+      lx_warn "warning: unknown kernel status: $kernel_status"
       ;;
   esac
 
@@ -196,7 +194,7 @@ lx_maint() {
     0|"")
       ;;
     *)
-      lx_warn "Warning: unknown service status: $service_status"
+      lx_warn "warning: unknown service status: $service_status"
       ;;
   esac
 
@@ -212,9 +210,7 @@ lx_maint() {
     return 0;
   fi
 
-  if ! $reboot_required && ! $restart_services; then
-    lx_note "system is up to date."
-  fi
+  lx_note "system is up to date."
 
   return 0;
 
