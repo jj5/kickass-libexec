@@ -273,8 +273,9 @@ lx_maint_run() {
 
   lx_run lx_ssh "$host" sudo /usr/sbin/needrestart -b -r l;
 
-  lx_note "maint has completed on '$host', will sleep for a minute.";
-
-  sleep 60;
+  # 2026-07-17 jj5 - OLD: this sleep wouldn't run if the previous command caused a reboot, so we do it in advance now
+  # instead of at the end.
+  #lx_note "maint has completed on '$host', will sleep for a minute.";
+  #sleep 60;
 
 }
