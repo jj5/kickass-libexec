@@ -193,9 +193,9 @@ lx_schedule_reboot() {
 
   };
 
-  lx_note "will reboot in 30 seconds...";
+  lx_note "will reboot in 10 seconds...";
 
-  echo "sleep 30; sudo shutdown -r now" | at now;
+  echo "sleep 10; sudo shutdown -r now" | at now;
 
 }
 
@@ -280,9 +280,9 @@ lx_maint_run() {
 
   lx_run lx_ssh "$host" /srv/libexec/bin/lx-maint.sh;
 
-  lx_run lx_ssh "$host" sudo /usr/sbin/needrestart -r l;
-
-  lx_run lx_ssh "$host" sudo /usr/sbin/needrestart -b -r l;
+  # 2026-07-17 jj5 - OLD: the lx-maint.sh script (above) will reboot after 10 second delay
+  #lx_run lx_ssh "$host" sudo /usr/sbin/needrestart -r l;
+  #lx_run lx_ssh "$host" sudo /usr/sbin/needrestart -b -r l;
 
   # 2026-07-17 jj5 - OLD: this sleep wouldn't run if the previous command caused a reboot, so we do it in advance now
   # instead of at the end.
