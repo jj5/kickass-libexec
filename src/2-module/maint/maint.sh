@@ -307,7 +307,7 @@ lx_maint_run() {
   # 2026-07-17 jj5 - HACK! the computer 'truth' gets backed up after 'understanding' (at the moment, anyway), so we give
   # it some extra time because 'understanding' is the DNS server and we need that to resolve names...
   #
-  if [ "$host" -eq 'truth' ]; then
+  if [[ "$host" == 'truth' ]]; then
 
     lx_note "maint is preparing to run on '$host', will sleep for an extra minute.";
 
