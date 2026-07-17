@@ -200,13 +200,13 @@ lx_maint() {
       ;;
   esac
 
-  if $reboot_required; then
+  if "$reboot_required"; then
     lx_note "a system reboot is required, scheduling reboot."
     lx_schedule_reboot;
     return 0;
   fi
 
-  if $restart_services; then
+  if "$restart_services"; then
     lx_note "one or more services should be restarted, scheduling reboot."
     lx_schedule_reboot;
     return 0;
