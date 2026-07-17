@@ -161,10 +161,59 @@ lx_maint() {
 
     lx_run lx_schedule_reboot;
 
-  elif /usr/sbin/needrestart -b -r l 2>&1 | grep 'NEEDRESTART-SVC:'; then
+    return 0;
 
-    lx_run lx_schedule_reboot;
+  fi
 
+  local status=$(
+    sudo needrestart -b 2>/dev/null
+  )
+
+  local kernel_status=$(awk '/^NEEDRESTART-KSTA:/ {print $2; exit}' <<<"$status")
+  local service_status=$(awk '/^NEEDRESTART-SVC:/ {print $2; exit}' <<<"$status")
+
+  local reboot_required=false
+  local restart_services=false
+
+  case "$kernel_status" in
+    2|3)
+      reboot_required=true
+      ;;
+    1)
+      ;;
+    0|"")
+      lx_warn "Warning: unable to determine kernel status."
+      ;;
+    *)
+      lx_warn "Warning: unknown kernel status: $kernel_status"
+      ;;
+  esac
+
+  case "$service_status" in
+    1)
+      restart_services=true
+      ;;
+    0|"")
+      ;;
+    *)
+      lx_warn "Warning: unknown service status: $service_status"
+      ;;
+  esac
+
+  if $reboot_required; then
+    lx_note "a system reboot is required, scheduling reboot."
+    lx_schedule_reboot;
+    return 0;
+  fi
+
+  if $restart_services; then
+    lx_note "one or more services should be restarted, scheduling reboot."
+    lx_schedule_reboot;
+    return 0;
+  fi
+
+  if ! $reboot_required && ! $restart_services; then
+    lx_note "system is up to date."
   fi
 
   return 0;
@@ -179,7 +228,7 @@ lx_schedule_reboot() {
 
     charisma)
 
-      lx_note "will not automatically reboot this host '$HOSTNAME'.";
+      lx_notify "reboot required for '$HOSTNAME'.";
 
       return 0;;
 
